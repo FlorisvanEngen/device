@@ -9,6 +9,9 @@ class Device extends Model
 {
     use HasFactory;
 
+    protected $guarded = [];
+    protected $with = ['category'];
+
 //    /**
 //     * @return \Illuminate\Database\Eloquent\Relations\HasMany
 //     */
