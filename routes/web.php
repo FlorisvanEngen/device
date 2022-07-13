@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+//routes om een
+
 Route::get('/', function () {
     return view('welcome');
 });

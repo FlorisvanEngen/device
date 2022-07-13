@@ -16,12 +16,15 @@ return new class extends Migration
         Schema::create('devices', function (Blueprint $table) {
             $table->id();
             $table->foreignId('category_id')->constrained()->restrictOnDelete();
-            $table->foreignId('created_by_id')->constrained()->restrictOnDelete();
-            $table->foreignId('edited_by_id')->nullable()->constrained()->nullOnDelete();
-            $table->string('name', 30);
+            $table->foreignId('created_by_id')->constrained('users')->onDelete('RESTRICT');
+            $table->foreignId('edited_by_id')->nullable()->constrained('users')->onDelete('SET NULL');
+            $table->string('name', 30)->unique();
             $table->text('description');
             $table->string('pdf_path')->nullable();
             $table->timestamps();
+
+//            $table->foreign('created_by_id')->references('íd')->on('users');
+//            $table->foreign('edited_by_id')->references('íd')->on('users')->onDelete('SET NULL');
         });
     }
 

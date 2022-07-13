@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Device;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +18,8 @@ class PhotoFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'device_id' => Device::factory(),
+            'photo_path' => $this->faker->slug
         ];
     }
 }
