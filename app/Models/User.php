@@ -41,4 +41,14 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function createdDevices()
+    {
+        return $this->belongsToMany(Device::class, 'posts', 'created_by_id');
+    }
+
+    public function editedDevices()
+    {
+        return $this->belongsToMany(Device::class, 'posts', 'edited_by_id');
+    }
 }
