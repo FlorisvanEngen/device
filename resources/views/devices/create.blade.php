@@ -1,16 +1,10 @@
 <x-layout>
     <h1>Create a device</h1>
     <x-back-button/>
-    <form method="POST" action="/devices">
+    <form method="POST" action="/devices" enctype="multipart/form-data">
         @csrf
         <x-form.input name="name" required/>
-        {{--        <div class="mb-3">--}}
-        {{--            <label for="pdf_path" class="form-label">Pdf_path</label>--}}
-        {{--            <input type="file" class="form-control" id="pdf_path" name="pdf_path" value="{{old('pdf_path')}}"/>--}}
-        {{--            @error('pdf_path')--}}
-        {{--            <p class="text-danger mt-1">{{ $message }}</p>--}}
-        {{--            @enderror--}}
-        {{--        </div>--}}
+        <x-form.input name="pdf_path" type="file"/>
         <div class="mb-3">
             <x-form.label name="category_id"/>
             <select id="category_id" name="category_id" class="form-control" required>
