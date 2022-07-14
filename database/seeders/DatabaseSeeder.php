@@ -54,5 +54,20 @@ class DatabaseSeeder extends Seeder
         Device::factory(2)->create([
             'category_id' => 3
         ]);
+
+        Photo::factory(2)->create([
+            'device_id' => 1,
+            'photo_path' => 'img/illustration-1.png'
+        ]);
+
+        Photo::factory(2)->create([
+            'device_id' => 1,
+            'photo_path' => 'img/illustration-4.png'
+        ]);
+
+        Photo::factory(2)->create([
+            'device_id' => 2,
+            'photo_path' => 'img/illustration-3.png'
+        ]);
     }
 }

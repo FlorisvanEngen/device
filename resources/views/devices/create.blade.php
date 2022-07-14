@@ -4,7 +4,7 @@
     <form method="POST" action="/devices" enctype="multipart/form-data">
         @csrf
         <x-form.input name="name" required/>
-        <x-form.input name="pdf_path" type="file"/>
+        <x-form.input name="pdf_path" type="file" accept="application/pdf"/>
         <div class="mb-3">
             <x-form.label name="category_id"/>
             <select id="category_id" name="category_id" class="form-control" required>
@@ -17,7 +17,7 @@
         </div>
         <x-form.textarea name="description" required/>
         <x-form.button>
-            Submit
+            Add device
         </x-form.button>
     </form>
 </x-layout>

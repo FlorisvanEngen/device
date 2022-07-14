@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\PDFController;
 use App\Http\Controllers\DeviceController;
+use App\Http\Controllers\PhotoController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,3 +27,8 @@ Route::get('devices/{device}/edit', [DeviceController::class, 'edit']);
 Route::get('devices/{device}', [DeviceController::class, 'show']);
 Route::patch('devices/{device}', [DeviceController::class, 'update']);
 Route::delete('devices/{device}', [DeviceController::class, 'destroy']);
+
+Route::delete('devices/pdf/{device}', [PDFController::class, 'destroy']);
+
+Route::post('devices/photo/{device}', [PhotoController::class, 'store']);
+Route::delete('devices/photo/{photo}', [PhotoController::class, 'destroy']);

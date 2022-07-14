@@ -1,0 +1,11 @@
+$disabledColor: #e9ecef;
+
+label.form-control.disabled {
+    background-color: $disabledColor;
+    min-height: 38px;
+    opacity: 1;
+}
+
+main.container {
+    min-height: calc(100vh - 225px);
+}

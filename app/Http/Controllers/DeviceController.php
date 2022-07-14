@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Device;
+use App\Models\Photo;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\ValidationException;
 
 class DeviceController extends Controller
 {
@@ -23,7 +25,11 @@ class DeviceController extends Controller
      */
     public function show(Device $device)
     {
-        return view('devices.show', ['device' => $device, 'categories' => Category::all()]);
+        return view('devices.show', [
+            'device' => $device,
+            'categories' => Category::all(),
+            'photos' => Photo::query()->where('device_id', '=', $device->id)->get()
+        ]);
     }
 
     /**
@@ -39,12 +45,12 @@ class DeviceController extends Controller
      */
     public function store()
     {
-        $attributes = array_merge($this->validateDevice(), [
-            'created_by_id' => 1//request()->user()->id();
-        ]);
+        $attributes = $this->validateDevice();
 
-        if(isset($attributes['pdf_path'])) {
-            $attributes['pdf_path'] = request()->file('pdf_path')->store('pdf');
+        $attributes['created_by_id'] = 1;//request()->user()->id();
+
+        if (isset($attributes['pdf_path'])) {
+            $attributes['pdf_path'] = $this->uploadFile(request()->file('pdf_path'));
         }
 
         $device = Device::create($attributes);
@@ -58,7 +64,11 @@ class DeviceController extends Controller
      */
     public function edit(Device $device)
     {
-        return view('devices.edit', ['device' => $device, 'categories' => Category::all()]);
+        return view('devices.edit', [
+            'device' => $device,
+            'categories' => Category::all(),
+            'photos' => Photo::query()->where('device_id','=',$device->id)->get()
+        ]);
     }
 
     /**
@@ -67,12 +77,13 @@ class DeviceController extends Controller
      */
     public function update(Device $device)
     {
-        $attributes = array_merge($this->validateDevice(), [
-            'edited_by_id' => 1//request()->user()->id();
-        ]);
+        $attributes = $this->validateDevice();
+
+        $attributes['edited_by_id'] = 1;//request()->user()->id();
+        $attributes['updated_at'] = time();
 
         if (isset($attributes['pdf_path'])) {
-            $attributes['pdf_path'] = request()->file('pdf_path')->store('pdf');
+            $attributes['pdf_path'] = $this->uploadFile(request()->file('pdf_path'));
         }
 
         $device->update($attributes);
@@ -91,13 +102,31 @@ class DeviceController extends Controller
         return redirect('/devices')->with('success', 'The device \'' . $device->name . '\' has been deleted!');
     }
 
-    protected function validateDevice() {
+    /**
+     * @return array
+     */
+    protected function validateDevice()
+    {
         return request()->validate([
             'name' => 'required',
-            'pdf_path' => 'image',
+            'pdf_path' => ['nullable', 'file'],
             'description' => 'required',
             'category_id' => ['required', Rule::exists('categories', 'id')]
         ]);
 
+    }
+
+    /**
+     * @param $file
+     * @return mixed
+     * @throws ValidationException
+     */
+    protected function uploadFile($file)
+    {
+        if ($file->getClientMimeType() == 'application/pdf') {
+            return $file->store('pdf');
+        } else {
+            throw ValidationException::withMessages(['pdf_path' => 'The file must ba a PDF.']);
+        }
     }
 }

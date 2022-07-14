@@ -15,6 +15,7 @@
             <th>Created at</th>
             <th></th>
         </tr>
+        @if(count($devices) > 0)
         @foreach($devices as $device)
             <tr>
                 <td>{{$device->id}}</td>
@@ -28,6 +29,11 @@
                 </td>
             </tr>
         @endforeach
+        @else
+            <tr>
+                <td colspan="5">No devices has been found.</td>
+            </tr>
+        @endif
     </table>
     {{ $devices->links() }}
     <a class="btn btn-primary" href="/devices/create">Create</a>
