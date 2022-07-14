@@ -1,7 +1,3 @@
-$(document).ready(function () {
-
-});
-
 function deleteDevice(inId, inName) {
     try {
         $("#deviceId").html(inId);

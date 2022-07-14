@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Device;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\Rule;
 
 class PDFController extends Controller
 {
@@ -14,13 +14,15 @@ class PDFController extends Controller
      */
     public function destroy(Device $device)
     {
-//        TODO: bewerk de edited_by_id kolomen.
+        $attributes = request()->validate([
+            'edited_by_id' => ['required', Rule::exists('users', 'id')]
+        ]);
 
         Storage::delete($device->pdf_path);
 
-        $device->pdf_path = null;
-        $device->updated_at = time();
-        $device->update();
+        $attributes['pdf_path'] = null;
+        $attributes['updated_at'] = time();
+        $device->update($attributes);
 
         return ['success' => true];
     }

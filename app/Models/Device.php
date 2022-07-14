@@ -12,45 +12,44 @@ class Device extends Model
     protected $guarded = [];
     protected $with = ['category'];
 
-//    /**
-//     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-//     */
-//    public function comments()
-//    {
-//        return $this->hasMany(Comment::class);
-//    }
-//
-//    /**
-//     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-//     */
-//    public function category()
-//    {
-//        return $this->belongsTo(Category::class);
-//    }
-//
-//    /**
-//     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-//     */
-//    public function author()
-//    {
-//        return $this->belongsTo(User::class, 'user_id');
-//    }
+    /**
+     * @param $query
+     * @param array $filter
+     * @return void
+     */
+    public function scopeFilter($query, array $filters)
+    {
+        $query->when($filters['category'] ?? false, fn($query, $category) => $query->whereHas('category', fn($query) => $query->where('id', $category))
+        );
+    }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function category()
     {
         return $this->belongsTo(Category::class);
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function photos()
     {
         return $this->hasMany(Photo::class);
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function createdBy()
     {
         return $this->belongsTo(User::class, 'created_by_id');
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function editedBy()
     {
         return $this->belongsTo(User::class, 'edited_by_id');

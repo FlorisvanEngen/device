@@ -6,7 +6,6 @@ use App\Models\Category;
 use App\Models\Device;
 use App\Models\Photo;
 use App\Models\User;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -18,13 +17,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create.blade.php();
-
-        // \App\Models\User::factory()->create.blade.php([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
-
         Category::factory()->create([
             'name' => 'Camera'
         ]);
@@ -40,18 +32,25 @@ class DatabaseSeeder extends Seeder
         User::factory()->create([
             'name' => 'Floris van Engen',
             'email' => 'floris.van.engen@connectionsystems.nl',
+            'password' => bcrypt('password123'),
+            'role' => 'admin'
+        ]);
+
+        User::factory()->create([
+            'name' => 'user',
+            'email' => 'info@user.nl',
             'password' => bcrypt('password123')
         ]);
 
-        Device::factory(2)->create([
+        Device::factory(33)->create([
             'category_id' => 1
         ]);
 
-        Device::factory(2)->create([
+        Device::factory(33)->create([
             'category_id' => 2
         ]);
 
-        Device::factory(2)->create([
+        Device::factory(34)->create([
             'category_id' => 3
         ]);
 

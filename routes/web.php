@@ -1,8 +1,11 @@
 <?php
 
 use App\Http\Controllers\PDFController;
-use App\Http\Controllers\DeviceController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PhotoController;
+use App\Http\Controllers\DeviceController;
+use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\SessionsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,15 +23,25 @@ Route::get('/', function (){
     return view('index');
 });
 
-Route::post('devices', [DeviceController::class, 'store']);
-Route::get('devices/create', [DeviceController::class, 'create']);
-Route::get('devices', [DeviceController::class, 'index']);
-Route::get('devices/{device}/edit', [DeviceController::class, 'edit']);
-Route::get('devices/{device}', [DeviceController::class, 'show']);
-Route::patch('devices/{device}', [DeviceController::class, 'update']);
-Route::delete('devices/{device}', [DeviceController::class, 'destroy']);
+Route::get('register', [RegisterController::class, 'create'])->middleware('guest');
+Route::post('register', [RegisterController::class, 'store'])->middleware('guest');
 
-Route::delete('devices/pdf/{device}', [PDFController::class, 'destroy']);
+Route::get('login', [SessionsController::class, 'create'])->name('login')->middleware('guest');
+Route::post('sessions', [SessionsController::class, 'store'])->middleware('guest');
+Route::post('logout', [SessionsController::class, 'destroy'])->middleware('auth');
 
-Route::post('devices/photo/{device}', [PhotoController::class, 'store']);
-Route::delete('devices/photo/{photo}', [PhotoController::class, 'destroy']);
+Route::get('devices/order', [OrderController::class, 'index'])->middleware('admin');
+Route::post('devices/order', [OrderController::class, 'store'])->middleware('admin');
+
+Route::post('devices', [DeviceController::class, 'store'])->middleware('admin');
+Route::get('devices/create', [DeviceController::class, 'create'])->middleware('admin');
+Route::get('devices', [DeviceController::class, 'index'])->middleware('auth');
+Route::get('devices/{device}/edit', [DeviceController::class, 'edit'])->middleware('admin');
+Route::get('devices/{device}', [DeviceController::class, 'show'])->middleware('auth');
+Route::patch('devices/{device}', [DeviceController::class, 'update'])->middleware('admin');
+Route::delete('devices/{device}', [DeviceController::class, 'destroy'])->middleware('admin');
+
+Route::delete('devices/pdf/{device}', [PDFController::class, 'destroy'])->middleware('admin');
+
+Route::post('devices/photo/{device}', [PhotoController::class, 'store'])->middleware('admin');
+Route::delete('devices/photo/{photo}', [PhotoController::class, 'destroy'])->middleware('admin');

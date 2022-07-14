@@ -25,29 +25,43 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
         <a class="navbar-brand" href="{{url('')}}">Home</a>
-        {{--        @auth--}}
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
                 aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="{{url('/devices')}}">Devices</a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
-                       data-bs-toggle="dropdown" aria-expanded="false">
-                        Dropdown link
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <li><a class="dropdown-item" href="{{url('/devices/create')}}">Create a Device</a></li>
-                        <li><a class="dropdown-item" href="#">Log out</a></li>
-                    </ul>
-                </li>
+                @auth
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{{url('/devices')}}">Devices</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                           data-bs-toggle="dropdown" aria-expanded="false">
+                            Welcome, {{ auth()->user()->name }}
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            @if(auth()->user()->role == 'admin')
+                                <li><a class="dropdown-item" href="{{url('/devices/create')}}">Create a Device</a></li>
+                            @endif
+                            <form method="POST" action="{{url('/logout')}}">
+                                @csrf
+                                <li>
+                                    <button type="submit" class="btn btn-link dropdown-item">Log out</button>
+                                </li>
+                            </form>
+                        </ul>
+                    </li>
+                @else
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{{url('/login')}}">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{{url('/register')}}">Register</a>
+                    </li>
+                @endauth
             </ul>
         </div>
-        {{--        @endauth--}}
     </div>
 </nav>
 <main class="container pt-4">
@@ -58,7 +72,13 @@
         <div class="py-3">
             <ul class="nav justify-content-center border-bottom pb-3 mb-3">
                 <li class="nav-item"><a href="{{url('')}}" class="nav-link px-2 text-muted">Home</a></li>
-                <li class="nav-item"><a href="{{url('/devices')}}" class="nav-link px-2 text-muted">Devices</a></li>
+                @auth()
+                    <li class="nav-item"><a href="{{url('/devices')}}" class="nav-link px-2 text-muted">Devices</a></li>
+                    <li class="nav-item"><a href="{{url('/logout')}}" class="nav-link px-2 text-muted">Logout</a></li>
+                @else
+                    <li class="nav-item"><a href="{{url('/login')}}" class="nav-link px-2 text-muted">Login</a></li>
+                    <li class="nav-item"><a href="{{url('/login')}}" class="nav-link px-2 text-muted">Register</a></li>
+                @endauth
             </ul>
             <p class="text-center text-muted">© 2021 Company, Inc</p>
         </div>

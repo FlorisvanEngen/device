@@ -15,6 +15,7 @@
             </select>
             <x-form.error name="category_id"/>
         </div>
+        <x-form.input name="order" type="number" required/>
         <x-form.textarea name="description" required/>
         <x-form.button>
             Add device

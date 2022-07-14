@@ -20,11 +20,9 @@ return new class extends Migration
             $table->foreignId('edited_by_id')->nullable()->constrained('users')->onDelete('SET NULL');
             $table->string('name', 30)->unique();
             $table->text('description');
+            $table->bigInteger('order');
             $table->string('pdf_path')->nullable();
             $table->timestamps();
-
-//            $table->foreign('created_by_id')->references('íd')->on('users');
-//            $table->foreign('edited_by_id')->references('íd')->on('users')->onDelete('SET NULL');
         });
     }
 

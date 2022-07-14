@@ -18,12 +18,16 @@
             @endforeach
         </select>
     </div>
+    <x-form.input name="order" disabled value="{{$device->order}}"/>
     <x-form.textarea name="description" value="{{$device->description}}" disabled/>
-    <a class="btn btn-primary" href="/devices/{{$device->id}}/edit">Edit</a>
-    <button type="button" class="btn btn-danger" onclick="deleteDevice({{$device->id . ',\'' . $device->name . '\''}})">
-        Delete
-    </button>
-    @if(count($photos))
+    @can('admin')
+        <a class="btn btn-primary" href="/devices/{{$device->id}}/edit">Edit</a>
+        <button type="button" class="btn btn-danger"
+                onclick="deleteDevice({{$device->id . ',\'' . $device->name . '\''}})">
+            Delete
+        </button>
+    @endcan
+    @if(count($photos) > 0)
         <hr/>
         <h1>Device photo's</h1>
         <div class="container">

@@ -1,6 +1,8 @@
 <x-layout>
-    <script src="{{url('/js/deletePdf.js')}}"></script>
-    <script src="{{url('/js/deletePhoto.js')}}"></script>
+    {{-- Scripts --}}
+    <script src="{{url('/js/deletePdf.js')}}" type="text/javascript"></script>
+    <script src="{{url('/js/deletePhoto.js')}}" type="text/javascript"></script>
+
     <h1>Device: {{$device->name}}</h1>
     <x-back-button/>
     <form method="POST" action="/devices/{{$device->id}}" enctype="multipart/form-data">
@@ -15,7 +17,7 @@
                         <a href="{{url('/storage/' . $device->pdf_path)}}"
                            target="_blank">{{ str_replace('pdf/', '', $device->pdf_path) }}</a>
                     </label>
-                    <button class="btn btn-danger ms-2" type="button" onclick="deletePdf({{$device->id}})">
+                    <button class="btn btn-danger ms-2" type="button" onclick="deletePdf({{$device->id . ',' . auth()->user()->id}})">
                         Delete
                     </button>
                 </div>
@@ -36,6 +38,7 @@
             </select>
             <x-form.error name="category_id"/>
         </div>
+        <x-form.input name="order" value="{{(old('order') ?: $device->order)}}" type="number" required/>
         <x-form.textarea name="description" value="{{(old('description') ?: $device->description)}}" required/>
         <x-form.button>
             Update device
@@ -53,7 +56,7 @@
             Add photo
         </button>
     </form>
-    @if(count($photos))
+    @if(count($photos) > 0)
         <div class="container">
             <div class="row">
                 @foreach($photos as $photo)

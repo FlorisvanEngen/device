@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Device;
 use App\Models\Photo;
-use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
 
@@ -16,7 +15,11 @@ class DeviceController extends Controller
      */
     public function index()
     {
-        return view('devices.index', ['devices' => Device::query()->orderBy('name')->paginate(5)]);
+        return view('devices.index', [
+            'devices' => Device::query()->orderBy('order')->filter(request(['category']))->paginate(20),
+            'categories' => Category::all(),
+            'currentCategory' => Category::firstWhere('id', request('category'))
+        ]);
     }
 
     /**
@@ -47,7 +50,7 @@ class DeviceController extends Controller
     {
         $attributes = $this->validateDevice();
 
-        $attributes['created_by_id'] = 1;//request()->user()->id();
+        $attributes['created_by_id'] = request()->user()->id;
 
         if (isset($attributes['pdf_path'])) {
             $attributes['pdf_path'] = $this->uploadFile(request()->file('pdf_path'));
@@ -67,7 +70,7 @@ class DeviceController extends Controller
         return view('devices.edit', [
             'device' => $device,
             'categories' => Category::all(),
-            'photos' => Photo::query()->where('device_id','=',$device->id)->get()
+            'photos' => Photo::query()->where('device_id', '=', $device->id)->get()
         ]);
     }
 
@@ -79,7 +82,7 @@ class DeviceController extends Controller
     {
         $attributes = $this->validateDevice();
 
-        $attributes['edited_by_id'] = 1;//request()->user()->id();
+        $attributes['edited_by_id'] = request()->user()->id;
         $attributes['updated_at'] = time();
 
         if (isset($attributes['pdf_path'])) {
@@ -108,9 +111,10 @@ class DeviceController extends Controller
     protected function validateDevice()
     {
         return request()->validate([
-            'name' => 'required',
+            'name' => ['required'],
             'pdf_path' => ['nullable', 'file'],
-            'description' => 'required',
+            'description' => ['required'],
+            'order' => ['required', 'numeric'],
             'category_id' => ['required', Rule::exists('categories', 'id')]
         ]);
 

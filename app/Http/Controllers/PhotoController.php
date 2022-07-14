@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Device;
 use App\Models\Photo;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 class PhotoController extends Controller
@@ -16,7 +15,7 @@ class PhotoController extends Controller
     public function store(Device $device)
     {
         $attributes = request()->validate([
-            'photo_path' => 'image'
+            'photo_path' => ['image']
         ]);
 
         $attributes['device_id'] = $device->id;
@@ -27,7 +26,7 @@ class PhotoController extends Controller
 
         Photo::create($attributes);
 
-        return redirect('/devices/' . $device->id)->with('success', 'The photo has been added!');
+        return redirect('/devices/' . $device->id . '/edit')->with('success', 'The photo has been added!');
     }
 
     /**

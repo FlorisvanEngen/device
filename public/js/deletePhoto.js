@@ -1,7 +1,3 @@
-$(document).ready(function () {
-
-});
-
 function deletePhoto(inId) {
     $.ajax({
         url: _dir + '/devices/photo/' + inId.toString(),
