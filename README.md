@@ -77,4 +77,4 @@ $ git status
 
 ## Cheat sheet
 
-In deze [Cheat sheet](/readme/git-cheatsheet.pdf) staan verschillende commando's met uitgelegd wat ze doen.
+In deze [cheat sheet](/readme/git-cheatsheet.pdf) staan verschillende commando's met uitgelegd wat ze doen.
