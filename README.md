@@ -3,8 +3,7 @@
 Floris van Engen <br/>
 18-07-2022
 
-## Git via een terminal
-### Clone
+## Clone
 
 Een repository kan geclonned worden door de volgende stappen uit te voeren:
 
@@ -22,7 +21,7 @@ $ git clone {URL}
 
 Nu heb is een clone gemaakt van de repository.
 
-### Commit
+## Commit
 
 De wijzigingen dat wordt gemaakt kan worden gecommit door de volgende stappen uit te voeren:
 
@@ -41,7 +40,7 @@ $ git commit -m '{Message}'
 
 Nu is een commit aangemaakt met de huidige wijzigingen.
 
-### Pull
+## Pull
 
 De wijzigingen kan opgehaald worden door de volgende stappen uit te voeren:
 
@@ -54,7 +53,7 @@ $ git pull
 
 Nu zijn alle nieuwe wijzigingen opgehaald.
 
-### Push
+## Push
 
 De gemaakte wijzigingen kan naar de repository verstuurd worden door de volgende stappen uit te voeren:
 
