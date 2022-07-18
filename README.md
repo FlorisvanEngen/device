@@ -13,7 +13,7 @@ Een repository kan geclonned worden door de volgende stappen uit te voeren:
 ![Clone voorbeeld](/readme/git-clone.PNG)
 
 3. Open een terminal en ga naar een map waar de repository naar geclonned kan worden.
-4. Voor de onderstaande commondo uit in de terminal. Verander de {URL} met de url dat in stap 2 is gekoppieërd.
+4. Voor de onderstaande commando uit in de terminal. Verander de {URL} met de url dat in stap 2 is gekoppieërd.
 
 ```text
 $ git clone {URL}
@@ -58,7 +58,7 @@ Nu zijn alle nieuwe wijzigingen opgehaald.
 De gemaakte wijzigingen kan naar de repository verstuurd worden door de volgende stappen uit te voeren:
 
 1. Zorg dat alle huidige wijzigingen zijn gecommit. (zie Commit)
-2. Zorg dat alle wijzigingen van de reposiory zijn opgehaald. (Zie Pull)
+2. Zorg dat alle wijzigingen van de repository zijn opgehaald. (Zie Pull)
 3. Voer de volgende commando uit om de gemaakte wijzigingen te naar de repository te sturen.
 
 ```text
@@ -77,4 +77,4 @@ $ git status
 
 ## Cheat sheet
 
-In deze [cheat sheet](/readme/git-cheatsheet.pdf) staan verschillende commando's met uitgelegd wat ze doen.
+In deze [cheatsheet](/readme/git-cheatsheet.pdf) staan verschillende commando's met uitgelegd wat ze doen.
