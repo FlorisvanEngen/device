@@ -1,64 +1,73 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+# Device
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Floris van Engen <br/>
+18-07-2022
 
-## About Laravel
+Wat moet in de readme staan?
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+* Clone
+* Pull
+* Push
+* Merge
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Clone
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Een repository kan geclonned worden door de volgende stappen uit te voeren:
 
-## Learning Laravel
+1. Ga naar de repository op [GitHub.com](https://github.com/FlorisvanEngen/device) en klik op de groene knop "Code".
+2. Kopieër de HTTPS link. Zie hieronder voor een voorbeeld.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+![Clone voorbeeld](/readme/git-clone.PNG)
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+3. Open een terminal en ga naar een map waar de repository naar geclonned kan worden.
+4. Voor de onderstaande commondo uit in de terminal. Verander de {URL} met de url dat in stap 2 is gekoppieërd.
 
-## Laravel Sponsors
+```text
+$ git clone {URL}
+```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+Nu heb is een clone gemaakt van de repository.
 
-### Premium Partners
+## Commit
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+De wijzigingen dat wordt gemaakt kan worden gecommit door de volgende stappen uit te voeren:
 
-## Contributing
+1. Voor de onderstaande commando's uit om alle wijzigingen klaar te zetten om te kunnen commiten. Hierdoor word alle
+   wijzigingen klaar gezet.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+```text
+$ git stage -A
+```
 
-## Code of Conduct
+2. Voor de onderstaande commando uit om de commit aan te maken. Verander de {Message} met het bericht voor de commit.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+```text
+$ git commit -m '{Message}'
+```
 
-## Security Vulnerabilities
+Nu is een commit aangemaakt met de huidige wijzigingen.
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+## Pull
 
-## License
+De wijzigingen kan opgehaald worden door de volgende stappen uit te voeren:
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+1. Zorg dat alle huidige wijzigingen zijn gecommit. (Zie Commit)
+2. Voer onderstaande commando uit om de wijzigingen van de repository op te halen.
+
+```text
+$ git pull
+```
+
+Nu zijn alle nieuwe wijzigingen opgehaald.
+
+## Push
+
+De gemaakte wijzigingen kan naar de repository verstuurd worden door de volgende stappen uit te voeren:
+
+1. Zorg dat alle huidige wijzigingen zijn gecommit. (zie Commit)
+2. Zorg dat alle wijzigingen van de reposiory zijn opgehaald. (Zie Pull)
+3. Voer de volgende commando uit om de gemaakte wijzigingen te naar de repository te sturen.
+
+```textmate
+$ git push 
+```
