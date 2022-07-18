@@ -32,7 +32,7 @@ class SessionsController extends Controller
         }
 
         session()->regenerate();
-        return redirect('/')->with('success', 'Login successful!');
+        return redirect('/devices')->with('success', 'Login successful!');
     }
 
     /**

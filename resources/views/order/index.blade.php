@@ -5,7 +5,7 @@
     </script>
     <h1>Change the order for the devices</h1>
     <div class="mb-3">
-        <button type="button" class="btn btn-primary">Save</button>
+        <button type="button" class="btn btn-primary" onclick="saveOrder()">Save</button>
         <a class="btn btn-secondary" href="{{url('/devices')}}">Cancel</a>
     </div>
     <table class="table table-striped">
@@ -24,13 +24,13 @@
             <th>Created at</th>
         </tr>
         @foreach($devices as $device)
-            <tr id="{{$device->id}}"
+            <tr id="device_{{$device->id}}"
                 draggable="true" ondragover="allowDrop(event)"
                 ondragstart="dragStart(event)" ondrop="drop(event)">
                 <td>{{$device->id}}</td>
                 <td>{{$device->name}}</td>
                 <td>{{$device->category->name}}</td>
-                <td>{{$device->order}}</td>
+                <td id="order_{{$device->id}}">{{$device->order}}</td>
                 <td>{{$device->created_at->format('H:i:s d-m-Y')}}</td>
             </tr>
         @endforeach
