@@ -61,8 +61,20 @@ De gemaakte wijzigingen kan naar de repository verstuurd worden door de volgende
 2. Zorg dat alle wijzigingen van de reposiory zijn opgehaald. (Zie Pull)
 3. Voer de volgende commando uit om de gemaakte wijzigingen te naar de repository te sturen.
 
-```textmate
+```text
 $ git push 
 ```
 
-Nu zijn alle gemaakte wijzigingen verstuurd naar de repository. 
+Nu zijn alle gemaakte wijzigingen verstuurd naar de repository.
+
+## Status
+
+De status van de local repository kan weergegeven worden door de volgende commando uit te voeren:
+
+```text
+$ git status
+```
+
+## Cheat sheet
+
+In deze [Cheat sheet](/readme/git-cheatsheet.pdf) staan verschillende commando's met uitgelegd wat ze doen.
