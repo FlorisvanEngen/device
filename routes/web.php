@@ -21,7 +21,7 @@ use Illuminate\Support\Facades\Session;
 */
 
 Route::get('/', function (){
-    Session::flush();
+//    Session::flush();
     return view('index');
 });
 

@@ -42,6 +42,15 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    /**
+     * @param $password
+     * @return void
+     */
+    public function setPasswordAttribute($password)
+    {
+        $this->attributes['password'] = bcrypt($password);
+    }
+
     public function createdDevices()
     {
         return $this->belongsToMany(Device::class, 'posts', 'created_by_id');

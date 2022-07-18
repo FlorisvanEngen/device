@@ -32,14 +32,14 @@ class DatabaseSeeder extends Seeder
         User::factory()->create([
             'name' => 'Floris van Engen',
             'email' => 'floris.van.engen@connectionsystems.nl',
-            'password' => bcrypt('password123'),
+            'password' => 'password123',
             'role' => 'admin'
         ]);
 
         User::factory()->create([
             'name' => 'user',
             'email' => 'info@user.nl',
-            'password' => bcrypt('password123')
+            'password' => 'password123'
         ]);
 
         Device::factory(33)->create([

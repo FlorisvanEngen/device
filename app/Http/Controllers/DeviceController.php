@@ -80,7 +80,7 @@ class DeviceController extends Controller
      */
     public function update(Device $device)
     {
-        $attributes = $this->validateDevice();
+        $attributes = $this->validateDevice($device);
 
         $attributes['edited_by_id'] = request()->user()->id;
         $attributes['updated_at'] = time();
@@ -108,16 +108,17 @@ class DeviceController extends Controller
     /**
      * @return array
      */
-    protected function validateDevice()
+    protected function validateDevice(?Device $device = null)
     {
+        $device ??= new Device();
+
         return request()->validate([
-            'name' => ['required', 'max:30', Rule::unique('devices', 'name')],
+            'name' => ['required', 'max:30', Rule::unique('devices', 'name')->ignore($device->id)],
             'pdf_path' => ['nullable', 'file'],
             'description' => ['required'],
             'order' => ['required', 'numeric'],
             'category_id' => ['required', Rule::exists('categories', 'id')]
         ]);
-
     }
 
     /**

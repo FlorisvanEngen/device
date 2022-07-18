@@ -21,7 +21,7 @@ class DeviceFactory extends Factory
             'category_id' => Category::factory(),
             'created_by_id' => 1,
             'name' => $this->faker->unique()->word,
-            'description' => $this->faker->paragraph,
+            'description' => $this->faker->paragraph(),
             'order' => $this->faker->unique()->numerify
         ];
     }
