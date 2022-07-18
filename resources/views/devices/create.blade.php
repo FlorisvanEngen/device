@@ -6,7 +6,7 @@
     <x-back-button/>
     <form method="POST" action="/devices" enctype="multipart/form-data">
         @csrf
-        <x-form.input name="name" required/>
+        <x-form.input name="name" maxlength="30" required/>
         <x-form.input name="pdf_path" type="file" accept="application/pdf"/>
         <div class="mb-3">
             <x-form.label name="category_id"/>

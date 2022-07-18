@@ -9,7 +9,7 @@
     <form method="POST" action="/devices/{{$device->id}}" enctype="multipart/form-data">
         @method('PATCH')
         @csrf
-        <x-form.input name="name" value="{{(old('name') ?: $device->name)}}" required/>
+        <x-form.input name="name" value="{{(old('name') ?: $device->name)}}" maxlength="30" required/>
         @if($device->pdf_path != null)
             <div class="mb-3">
                 <x-form.label name="pdf_path"/>

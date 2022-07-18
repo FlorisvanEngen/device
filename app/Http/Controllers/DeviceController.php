@@ -111,7 +111,7 @@ class DeviceController extends Controller
     protected function validateDevice()
     {
         return request()->validate([
-            'name' => ['required'],
+            'name' => ['required', 'max:30', Rule::unique('devices', 'name')],
             'pdf_path' => ['nullable', 'file'],
             'description' => ['required'],
             'order' => ['required', 'numeric'],
