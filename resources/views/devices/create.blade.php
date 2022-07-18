@@ -1,4 +1,7 @@
 <x-layout>
+    {{-- Scripts --}}
+    <script src="{{url('/js/validation.js')}}" type="text/javascript"></script>
+
     <h1>Create a device</h1>
     <x-back-button/>
     <form method="POST" action="/devices" enctype="multipart/form-data">
@@ -15,7 +18,7 @@
             </select>
             <x-form.error name="category_id"/>
         </div>
-        <x-form.input name="order" type="number" required/>
+        <x-form.input name="order" type="number" onkeydown="onlyNumbers(event)" required/>
         <x-form.textarea name="description" required/>
         <x-form.button>
             Add device

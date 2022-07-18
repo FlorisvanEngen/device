@@ -16,7 +16,7 @@ class DeviceController extends Controller
     public function index()
     {
         return view('devices.index', [
-            'devices' => Device::query()->orderBy('order')->filter(request(['category']))->paginate(20),
+            'devices' => Device::query()->orderBy('order')->filter(request(['category']))->paginate(20)->withQueryString(),
             'categories' => Category::all(),
             'currentCategory' => Category::firstWhere('id', request('category'))
         ]);

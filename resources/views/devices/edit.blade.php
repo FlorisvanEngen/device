@@ -2,6 +2,7 @@
     {{-- Scripts --}}
     <script src="{{url('/js/deletePdf.js')}}" type="text/javascript"></script>
     <script src="{{url('/js/deletePhoto.js')}}" type="text/javascript"></script>
+    <script src="{{url('/js/validation.js')}}" type="text/javascript"></script>
 
     <h1>Device: {{$device->name}}</h1>
     <x-back-button/>
@@ -38,7 +39,7 @@
             </select>
             <x-form.error name="category_id"/>
         </div>
-        <x-form.input name="order" value="{{(old('order') ?: $device->order)}}" type="number" required/>
+        <x-form.input name="order" value="{{(old('order') ?: $device->order)}}" type="number" onkeydown="onlyNumbers(event)" required/>
         <x-form.textarea name="description" value="{{(old('description') ?: $device->description)}}" required/>
         <x-form.button>
             Update device

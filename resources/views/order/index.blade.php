@@ -35,6 +35,6 @@
             </tr>
         @endforeach
     </table>
-    <button type="button" class="btn btn-primary">Save</button>
+    <button type="button" class="btn btn-primary" onclick="saveOrder()">Save</button>
     <a class="btn btn-secondary" href="{{url('/devices')}}">Cancel</a>
 </x-layout>

@@ -25,11 +25,11 @@ function drop(event) {
         let draggingId = dragging.replace(/device_/g, "");
         let draggedOverId = draggedOver.replace(/device_/g, "");
 
-        let device = devices.find(device => device.id == draggingId);
-        let draggingIndex = devices.findIndex(device => device.id == draggingId);
+        let device = devices.find(device => device.id === draggingId);
+        let draggingIndex = devices.findIndex(device => device.id === draggingId);
         devices.splice(draggingIndex, 1);
 
-        let draggedOverIndex = devices.findIndex(device => device.id == draggedOverId);
+        let draggedOverIndex = devices.findIndex(device => device.id === draggedOverId);
         devices.splice(draggedOverIndex + 1, 0, device);
 
         devices.forEach(function (device, index) {
@@ -54,7 +54,6 @@ function saveOrder() {
         },
         success: function (d) {
             if (d.success == true){
-                //redirect to devices
                 window.location = _dir + "/devices";
             }
         },

@@ -14,6 +14,7 @@
             </select>
         </div>
     </form>
+    {{ $devices->links() }}
     <table class="table table-striped">
         <colgroup>
             <col style="width: 10%;">
