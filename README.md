@@ -16,7 +16,7 @@ Om de applicatie lokaal te kunnen draaien moet de volgende software geïnstallee
 ### Lokaal draaien
 
 De applicatie kan lokaal gebruikt worden door de volgende stappen uit te voeren:
-1. Open Git Bash en clone de applicatie in de map "c/xampp/htdocs/device". Zie de hoofdstuk "Git - Clone".
+1. Open Git Bash en clone de applicatie in de map "C:\xampp\htdocs". Zie de hoofdstuk "Git - Clone".
 2. Open XAMPP en start de MySQL module. Zie hieronder voor een voorbeeld.
    ![XAMPP](/readme/xampp.PNG)
 3. Open Git Bash en ga naar de hoofdmap waar de applicatie staat.
