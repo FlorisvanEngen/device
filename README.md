@@ -45,11 +45,11 @@ cp .env.example .env
 nano .env
 ```
 
-6. Open xampp en start de module's apache en mysql.
-7. Ga naar [phpmyadmin](http://localhost/phpmyadmin/index.php) en maak een database aan met de naam dat in stap 5 is
-   geconfigureerd.
+6. Open XAMPP en start de module's apache en mysql.
+7. Ga naar [phpMyAdmin](http://localhost/phpmyadmin/index.php) en maak een database aan met de naam dat in stap 5 is
+   geconfigureerd. [^1]
 8. Als de App_key is ingesteld kan deze stap worden overgeslagen. Voer de command "php artisan key:generate" uit om een
-   nieuw App_key aan te maken. [^1]
+   nieuw App_key aan te maken. [^2]
 
 ```text
 php artisan key:generate
@@ -76,7 +76,9 @@ php artisan storage:link
 php artisan serve
 ```
 
-Nu is de applicatie gestart.
+Nu is de applicatie gestart om lokaal te kunnen gebruiken.
 
-[^1]: De App_key sleutel mag alleen aangemaakt worden bij nieuwe applicaties. Deze sleutel word namelijk gebruikt om de
-  database gegevens te kunnen versleutelen.
+[^1]: PhpMyAdmin is geïnstalleerd via XAMPP. 
+
+[^2]: De App_key sleutel mag alleen aangemaakt worden bij nieuwe applicaties of bij applicaties dat niet met andere
+  databases samenwerken. Deze sleutel word namelijk gebruikt om de database gegevens te kunnen ver- en ontsleutelen.
