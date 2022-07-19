@@ -18,13 +18,13 @@ Om de applicatie lokaal te kunnen draaien moet de volgende software geïnstallee
 Als de applicatie nog niet lokaal op de computer staat kan de volgende stappen uitgevoerd worden:
 
 1. Open Git Bash en clone de [applicatie](https://github.com/FlorisvanEngen/device) in de map "C:\xampp\htdocs".
-2. Voer de command "composer install" uit
+2. Voer de command "composer install" uit.
 
 ```text
 composer install
 ```
 
-3. Voer de command "npm install" uit
+3. Voer de command "npm install" uit.
 
 ```text
 npm install
@@ -36,7 +36,7 @@ npm install
 cp .env.example .env
 ```
 
-5. Configureer de db instellingen, App_key en pas de setting filesystem_disk aan naar public. Dit kan via de volgende
+5. Configureer de db instellingen, App_key en pas de instelling filesystem_disk aan naar public. Dit kan via de volgende
    command. (Als er geen bestaande App_key beschikbaar is kan deze worden aangemaakt in stap 8)
 
 ```text
@@ -46,8 +46,8 @@ nano .env
 6. Open XAMPP en start de module's apache en mysql.
 7. Ga naar [phpMyAdmin](http://localhost/phpmyadmin/index.php) en maak een database aan met de naam dat in stap 5 is
    geconfigureerd. [^1]
-8. Als de App_key is ingesteld kan deze stap worden overgeslagen. Voer de command "php artisan key:generate" uit om een
-   nieuw App_key aan te maken. [^2]
+8. Als de App_key in stap 5 is ingesteld kan deze stap worden overgeslagen. Voer de command "php artisan key:generate"
+   uit om een nieuw App_key aan te maken. [^2]
 
 ```text
 php artisan key:generate
@@ -81,8 +81,9 @@ Nu is de applicatie gestart om lokaal te kunnen gebruiken.
 Als de applicatie al op de computer staat kan de volgende stappen uitgevoerd worden:
 
 1. Open XAMPP en start de module mysql.
-2. Start de applicatie op door de commando "php artisan serve" uit te voeren. De url van de applicatie staat in de
-   git-gui terminal.
+2. Open Git Bash en ga naar de hoofdmap van de applicatie.
+3. Start de applicatie op door de commando "php artisan serve" uit te voeren. De url van de applicatie staat in de
+   Git Bash terminal.
 
 ```text
 php artisan serve
@@ -91,4 +92,4 @@ php artisan serve
 [^1]: PhpMyAdmin is geïnstalleerd via XAMPP.
 
 [^2]: De App_key sleutel mag alleen aangemaakt worden bij nieuwe applicaties of bij applicaties dat niet met andere
-databases samenwerken. Deze sleutel word namelijk gebruikt om de database gegevens te kunnen ver- en ontsleutelen.
+databases samenwerkt. Deze sleutel word namelijk gebruikt om de database gegevens te kunnen ver- en ontsleutelen.
