@@ -52,7 +52,7 @@ nano .env
 8. Ga naar [phpMyAdmin](http://localhost/phpmyadmin/index.php) en maak een database aan met de naam dat in stap 5 is
    geconfigureerd. [^1]
 9. Als de App_key in stap 5 is ingesteld kan deze stap worden overgeslagen. Voer de commando "php artisan key:generate"
-   uit om een nieuw App_key aan te maken. [^2]
+   uit om een nieuwe App_key aan te maken. [^2]
 
 ```text
 php artisan key:generate
