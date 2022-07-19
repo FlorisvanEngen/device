@@ -17,7 +17,7 @@ Om de applicatie lokaal te kunnen draaien moet de volgende software geïnstallee
 
 Als de applicatie nog niet lokaal op de computer staat kan de volgende stappen uitgevoerd worden:
 
-1. Open Git Bash en clone de applicatie in de map "C:\xampp\htdocs". Zie de hoofdstuk "Git - Clone".
+1. Open Git Bash en clone de [applicatie](https://github.com/FlorisvanEngen/device) in de map "C:\xampp\htdocs".
 2. Voer de command "composer install" uit
 
 ```text
