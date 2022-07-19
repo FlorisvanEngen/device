@@ -13,11 +13,9 @@ Om de applicatie lokaal te kunnen draaien moet de volgende software geïnstallee
 - Git-gui
 - XAMPP
 
-### Lokaal draaien
+### Eerste keer lokaal draaien
 
-Simpel met alle commando's
-
-De applicatie kan lokaal gebruikt worden door de volgende stappen uit te voeren:
+Als de applicatie nog niet lokaal op de computer staat kan de volgende stappen uitgevoerd worden:
 
 1. Open Git Bash en clone de applicatie in de map "C:\xampp\htdocs". Zie de hoofdstuk "Git - Clone".
 2. Voer de command "composer install" uit
@@ -70,7 +68,7 @@ php artisan storage:link
 ```
 
 11. Start de applicatie op door de commando "php artisan serve" uit te voeren. De url van de applicatie staat in de
-    git-gui terminal.
+    Git Bash terminal.
 
 ```text
 php artisan serve
@@ -78,7 +76,19 @@ php artisan serve
 
 Nu is de applicatie gestart om lokaal te kunnen gebruiken.
 
-[^1]: PhpMyAdmin is geïnstalleerd via XAMPP. 
+### Bestaande applicatie lokaal draaien
+
+Als de applicatie al op de computer staat kan de volgende stappen uitgevoerd worden:
+
+1. Open XAMPP en start de module mysql.
+2. Start de applicatie op door de commando "php artisan serve" uit te voeren. De url van de applicatie staat in de
+   git-gui terminal.
+
+```text
+php artisan serve
+```
+
+[^1]: PhpMyAdmin is geïnstalleerd via XAMPP.
 
 [^2]: De App_key sleutel mag alleen aangemaakt worden bij nieuwe applicaties of bij applicaties dat niet met andere
-  databases samenwerken. Deze sleutel word namelijk gebruikt om de database gegevens te kunnen ver- en ontsleutelen.
+databases samenwerken. Deze sleutel word namelijk gebruikt om de database gegevens te kunnen ver- en ontsleutelen.
