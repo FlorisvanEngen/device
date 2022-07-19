@@ -35,7 +35,7 @@ composer install
 npm install
 ```
 
-4. Maak een kopie van de .env.example genaamd .env door de volgende commando uit te voeren.
+4. Maak een kopie van de .env.example file met de naam .env door de volgende commando uit te voeren.
 
 ```text
 cp .env.example .env
@@ -73,7 +73,7 @@ php artisan storage:link
 ```
 
 11. Start de applicatie op door de commando "php artisan serve" uit te voeren. De url van de applicatie staat in de
-    Git Bash terminal.
+    Git Bash terminal. [^3]
 
 ```text
 php artisan serve
@@ -83,12 +83,12 @@ Nu is de applicatie gestart om lokaal te kunnen gebruiken.
 
 ### Bestaande applicatie lokaal draaien
 
-Als de applicatie al op de computer staat kan de volgende stappen uitgevoerd worden:
+Als de applicatie al op de computer staat en heeft al een keer gedraaid, dan kan de volgende stappen uitgevoerd worden:
 
 1. Open XAMPP en start de module mysql.
 2. Open Git Bash en ga naar de hoofdmap van de applicatie.
 3. Start de applicatie op door de commando "php artisan serve" uit te voeren. De url van de applicatie staat in de
-   Git Bash terminal.
+   Git Bash terminal. [^3]
 
 ```text
 php artisan serve
@@ -98,3 +98,6 @@ php artisan serve
 
 [^2]: De App_key sleutel mag alleen aangemaakt worden bij nieuwe applicaties of bij applicaties dat niet met andere
 databases samenwerkt. Deze sleutel word namelijk gebruikt om de database gegevens te kunnen ver- en ontsleutelen.
+
+[^3]: Om de applicatie te kunnen gebruiken mag de Git Bash terminal niet gesloten worden. De commando "php artisan
+serve" moet ook uitgevoerd blijven worden. 
