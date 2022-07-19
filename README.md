@@ -3,7 +3,7 @@
 Floris van Engen <br/>
 18-07-2022
 
-## De applicatie kunnen laten draaien
+## De applicatie lokaal kunnen laten draaien
 
 ### Benodigde software
 
@@ -15,97 +15,68 @@ Om de applicatie lokaal te kunnen draaien moet de volgende software geïnstallee
 
 ### Lokaal draaien
 
+Simpel met alle commando's
+
 De applicatie kan lokaal gebruikt worden door de volgende stappen uit te voeren:
+
 1. Open Git Bash en clone de applicatie in de map "C:\xampp\htdocs". Zie de hoofdstuk "Git - Clone".
-2. Open XAMPP en start de MySQL module. Zie hieronder voor een voorbeeld.
-   ![XAMPP](/readme/xampp.PNG)
-3. Open Git Bash en ga naar de hoofdmap waar de applicatie staat.
-4. Voer, in Git Bash, de volgende command.
+2. Voer de command "composer install" uit
+
+```text
+composer install
+```
+
+3. Voer de command "npm install" uit
+
+```text
+npm install
+```
+
+4. Maak een kopie van de .env.example genaamd .env door de volgende commando uit te voeren.
+
+```text
+cp .env.example .env
+```
+
+5. Configureer de db instellingen, App_key en pas de setting filesystem_disk aan naar public. Dit kan via de volgende
+   command. (Als er geen bestaande App_key beschikbaar is kan deze worden aangemaakt in stap 8)
+
+```text
+nano .env
+```
+
+6. Open xampp en start de module's apache en mysql.
+7. Ga naar [phpmyadmin](http://localhost/phpmyadmin/index.php) en maak een database aan met de naam dat in stap 5 is
+   geconfigureerd.
+8. Als de App_key is ingesteld kan deze stap worden overgeslagen. Voer de command "php artisan key:generate" uit om een
+   nieuw App_key aan te maken. [^1]
+
+```text
+php artisan key:generate
+```
+
+9. Voer de command "php artisan migrate:fresh --seed" uit. Hiermee word de database tabellen aangemaakt en voorzien van
+   dummy data.
+
+```text
+php artisan migrate:fresh --seed
+```
+
+10. Voer de command "php artisan storage:link" uit. Hiermee word een snelkoppeling gemaakt van de public map naar de
+    storage map. Hierdoor zijn de files in de storage map op de website beschikbaar.
+
+```text
+php artisan storage:link
+```
+
+11. Start de applicatie op door de commando "php artisan serve" uit te voeren. De url van de applicatie staat in de
+    git-gui terminal.
 
 ```text
 php artisan serve
 ```
 
-![Git-bash](/readme/git-bash.PNG)
-
-5. Open de browser en ga naar de url dat in Git-Bash staat. Zie hierboven voor een voorbeeld.
-
 Nu is de applicatie gestart.
 
-## Git
-
-### Clone
-
-Een repository kan geclonned worden door de volgende stappen uit te voeren:
-
-1. Ga naar de repository op [GitHub.com](https://github.com/FlorisvanEngen/device) en klik op de groene knop "Code".
-2. Kopieër de HTTPS link. Zie hieronder voor een voorbeeld.
-
-![Clone voorbeeld](/readme/git-clone.PNG)
-
-3. Open een terminal en ga naar een map waar de repository naar geclonned kan worden.
-4. Voor de onderstaande commando uit in de terminal. Verander de {URL} met de url dat in stap 2 is gekoppieërd.
-
-```text
-git clone {URL}
-```
-
-Nu heb is een clone gemaakt van de repository.
-
-### Commit
-
-De wijzigingen dat wordt gemaakt kan worden gecommit door de volgende stappen uit te voeren:
-
-1. Voor de onderstaande commando's uit om alle wijzigingen klaar te zetten om te kunnen commiten. Hierdoor word alle
-   wijzigingen klaar gezet.
-
-```text
-git stage -A
-```
-
-2. Voor de onderstaande commando uit om de commit aan te maken. Verander de {Message} met het bericht voor de commit.
-
-```text
-git commit -m '{Message}'
-```
-
-Nu is een commit aangemaakt met de huidige wijzigingen.
-
-### Pull
-
-De wijzigingen kan opgehaald worden door de volgende stappen uit te voeren:
-
-1. Zorg dat alle huidige wijzigingen zijn gecommit. (Zie Commit)
-2. Voer onderstaande commando uit om de wijzigingen van de repository op te halen.
-
-```text
-git pull
-```
-
-Nu zijn alle nieuwe wijzigingen opgehaald.
-
-### Push
-
-De gemaakte wijzigingen kan naar de repository verstuurd worden door de volgende stappen uit te voeren:
-
-1. Zorg dat alle huidige wijzigingen zijn gecommit. (zie Commit)
-2. Zorg dat alle wijzigingen van de repository zijn opgehaald. (Zie Pull)
-3. Voer de volgende commando uit om de gemaakte wijzigingen te naar de repository te sturen.
-
-```text
-git push 
-```
-
-Nu zijn alle gemaakte wijzigingen verstuurd naar de repository.
-
-### Status
-
-De status van de local repository kan weergegeven worden door de volgende commando uit te voeren:
-
-```text
-git status
-```
-
-### Cheat sheet
-
-In deze [cheatsheet](/readme/git-cheatsheet.pdf) staan verschillende commando's met uitgelegd wat ze doen.
+[^1]: De App_key sleutel mag alleen aangemaakt worden bij nieuwe applicaties. Deze sleutel word namelijk gebruikt om de
+  database gegevens te kunnen versleutelen.
