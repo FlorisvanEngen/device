@@ -8,9 +8,10 @@ Floris van Engen - 18-07-2022
 
 Om de applicatie lokaal te kunnen draaien moet de volgende software geïnstalleerd zijn:
 
-- Een browser
-- Git-gui
-- XAMPP
+- [Composer](https://getcomposer.org/download/)
+- Een browser ([Chrome](https://www.google.com/intl/nl_nl/chrome/), [Firefox](https://www.mozilla.org/nl/firefox/new/), etc.)
+- [Git-gui](https://git-scm.com/download/win)
+- [XAMPP](https://www.apachefriends.org/)
 
 ### Eerste keer lokaal draaien
 
