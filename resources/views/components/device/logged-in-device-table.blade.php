@@ -1,4 +1,4 @@
-@props(['devices'])
+@props(['devices', 'currentCategory'])
 
 <x-device.device-table :devices="$devices">
     <colgroup>
@@ -37,6 +37,6 @@
         <x-device.no-device-found/>
     @endif
 </x-device.device-table>
-<a class="btn btn-primary" href="/devices/create">Create</a>
-<a class="btn btn-primary" href="/devices/order">Change the order</a>
+<a class="btn btn-primary" href="/devices/create?category={{$currentCategory->id}}">Create</a>
+<a class="btn btn-primary" href="/devices/order?category={{$currentCategory->id}}">Change the order</a>
 <x-delete-device-modal/>

@@ -1,23 +1,18 @@
 <x-layout>
     <script type="application/javascript" src="{{url('js/devices.js')}}"></script>
     <h1>All devices</h1>
-    <form id="categoryForm" class="d-flex mb-2" method="GET" action="{{url('/')}}">
-        <label class="form-label align-self-center mb-0" for="category">Category:</label>
-        <div class="col-md-2">
-            <select id="category" name="category" class="form-control ms-2" onchange="$('#categoryForm').submit()">
-                <option value="">All</option>
-                @foreach($categories as $category)
-                    <option value="{{$category->id}}"
-                        {{isset($currentCategory) && $currentCategory->id == $category->id ? 'selected' : ''}}>
-                        {{$category->name}}
-                    </option>
-                @endforeach
-            </select>
-        </div>
-    </form>
+    {{ $devices->links() }}
+    <ul class="nav nav-tabs">
+        @foreach($categories as $category)
+            <li class="nav-item">
+                <a class="nav-link {{$currentCategory->id == $category->id ? 'active' : ''}}"
+                   href="{{ url('/?category=' . $category->id) }}">{{ $category->name }}</a>
+            </li>
+        @endforeach
+    </ul>
     @guest
         <x-device.logged-out-device-table :devices="$devices"/>
     @else
-        <x-device.logged-in-device-table :devices="$devices"/>
+        <x-device.logged-in-device-table :devices="$devices" :currentCategory="$currentCategory"/>
     @endguest
 </x-layout>

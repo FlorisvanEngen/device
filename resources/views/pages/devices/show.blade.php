@@ -1,12 +1,12 @@
 <x-layout>
     <h1>Device: {{$device->name}}</h1>
-    <x-back-button/>
+    <x-back-button :category="$device->category"/>
     <x-form.input name="name" disabled value="{{$device->name}}"/>
     <div class="mb-3">
         <x-form.label name="pdf_path"/>
         <label class="form-control disabled">
             @if($device->pdf_path !== null)
-            <a href="{{url('/storage/' . $device->pdf_path)}}"
+            <a href="{{url($device->pdf_path)}}"
                target="_blank">{{ $device->pdf_name }}</a>
             @endif
         </label>
@@ -37,7 +37,7 @@
                 @foreach($photos as $photo)
                     <div class="col-md-3 d-flex flex-column mb-3">
                         <div class="p-2">
-                            <img src="{{url('/storage/'. $photo->photo_path)}}" width="100%">
+                            <img src="{{url($photo->photo_path)}}" width="100%">
                         </div>
                         <label class="form-label text-center">
                             {{ $photo->name }}

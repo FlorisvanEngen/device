@@ -53,8 +53,8 @@ function saveOrder() {
             inDevices: devices
         },
         success: function (d) {
-            if (d.success == true){
-                window.location = _dir + "/devices";
+            if (d.success === true){
+                window.location = _dir + "/?category=" + categoryId;
             }
         },
         error: function (e) {

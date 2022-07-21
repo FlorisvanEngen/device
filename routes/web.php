@@ -42,3 +42,6 @@ Route::delete('devices/pdf/{device}', [PDFController::class, 'destroy'])->middle
 
 Route::post('devices/photo/{device}', [PhotoController::class, 'store'])->middleware('auth');
 Route::delete('devices/photo/{photo}', [PhotoController::class, 'destroy'])->middleware('auth');
+
+Route::get('pdf/{filename}', [PDFController::class, 'show']);
+Route::get('img/{filename}', [PhotoController::class, 'show']);

@@ -9,6 +9,26 @@ use Illuminate\Validation\Rule;
 class PDFController extends Controller
 {
     /**
+     * @param $filename
+     * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
+     */
+    public function show($filename)
+    {
+        $path = 'pdf/' . $filename;
+
+        if (!Storage::exists($path)) {
+            abort(404);
+        }
+
+        $headers = [
+            'Content-Type' => 'application/pdf',
+            'Content-Disposition' => 'inline; filename="' . $filename . '"'
+        ];
+
+        return response()->file($path, $headers); //->header('Content-Type', $type);
+    }
+
+    /**
      * @param Device $device
      * @return bool[]
      */

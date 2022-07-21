@@ -1,6 +1,7 @@
 <x-layout>
     <script src="{{url('/js/editDeviceOrder.js')}}" type="text/javascript"></script>
     <script>
+        var categoryId = {{ $currentCategory->id }};
         var devices = [@foreach($devices as $device){'id': '{{$device->id}}', 'order': {{$device->order}}}{{ !$loop->last ? ',' : ''}}@endforeach];
     </script>
     <h1>Change the order for the devices</h1>
@@ -8,6 +9,14 @@
         <button type="button" class="btn btn-primary" onclick="saveOrder()">Save</button>
         <a class="btn btn-secondary" href="{{url('/')}}">Cancel</a>
     </div>
+    <ul class="nav nav-tabs">
+        @foreach($categories as $category)
+            <li class="nav-item">
+                <a class="nav-link {{$currentCategory->id == $category->id ? 'active' : ''}}"
+                   href="{{ url('/devices/order?category=' . $category->id) }}">{{ $category->name }}</a>
+            </li>
+        @endforeach
+    </ul>
     <table class="table table-striped">
         <colgroup>
             <col style="width: 10%;">
@@ -36,5 +45,5 @@
         @endforeach
     </table>
     <button type="button" class="btn btn-primary" onclick="saveOrder()">Save</button>
-    <a class="btn btn-secondary" href="{{url('/')}}">Cancel</a>
+    <a class="btn btn-secondary" href="{{url('/?category=' . $currentCategory->id)}}">Cancel</a>
 </x-layout>

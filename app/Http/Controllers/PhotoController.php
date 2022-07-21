@@ -5,10 +5,30 @@ namespace App\Http\Controllers;
 use App\Models\Device;
 use App\Models\Photo;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 
 class PhotoController extends Controller
 {
+    /**
+     * @param $filename
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\Routing\ResponseFactory|Response
+     */
+    public function show($filename)
+    {
+        $path = 'img/' . $filename;
+
+        if (!Storage::exists($path)) {
+            abort(404);
+        }
+
+        $photo = Storage::disk('local')->get($path);
+        $type = pathinfo($path, PATHINFO_EXTENSION);
+
+        return response($photo, 200)->header('Content-Type', $type);
+    }
+
     /**
      * @param Device $device
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector

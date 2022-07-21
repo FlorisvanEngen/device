@@ -5,7 +5,7 @@
     <script src="{{url('/js/validation.js')}}" type="text/javascript"></script>
 
     <h1>Device: {{$device->name}}</h1>
-    <x-back-button/>
+    <x-back-button :category="$device->category"/>
     <form method="POST" action="/devices/{{$device->id}}" enctype="multipart/form-data" autocomplete="off">
         @method('PATCH')
         @csrf
@@ -15,7 +15,7 @@
                 <x-form.label name="pdf_path"/>
                 <div id="pdfPathLabel" class="d-flex align-items-start">
                     <label class="form-control">
-                        <a href="{{url('/storage/' . $device->pdf_path)}}"
+                        <a href="{{url($device->pdf_path)}}"
                            target="_blank">{{ $device->pdf_name }}</a>
                     </label>
                     <button class="btn btn-danger ms-2" type="button" onclick="deletepdf({{$device->id . ',' . auth()->user()->id}})">
@@ -63,7 +63,7 @@
                 @foreach($photos as $photo)
                     <div id="photo{{$photo->id}}" class="col-md-3 d-flex flex-column mb-3">
                         <div class="p-2">
-                            <img src="{{url('/storage/'. $photo->photo_path)}}" width="100%">
+                            <img src="{{url($photo->photo_path)}}" width="100%">
                         </div>
                         <label class="form-label text-center">
                             {{ $photo->name }}

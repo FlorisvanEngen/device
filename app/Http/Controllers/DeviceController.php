@@ -5,10 +5,12 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Device;
 use App\Models\Photo;
+use Composer\Autoload\ClassLoader;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
+use function GuzzleHttp\Promise\all;
 
 class DeviceController extends Controller
 {
@@ -17,11 +19,15 @@ class DeviceController extends Controller
      */
     public function index()
     {
-        return view('pages.devices.index', [
-            'devices' => Device::query()->orderBy('order')->filter(request(['category']))->paginate(20)->withQueryString(),
-            'categories' => Category::all(),
-            'currentCategory' => Category::firstWhere('id', request('category'))
-        ]);
+        $currentCategory = Category::firstWhere('id', request('category'));
+
+        if (!isset($currentCategory)) {
+            $currentCategory = Category::query()->orderBy('id')->first();
+        }
+
+        $categories = Category::all();
+        $devices = Device::query()->orderBy('order')->filter(compact('currentCategory'))->paginate(20)->withQueryString();
+        return view('pages.devices.index', compact('devices', 'categories', 'currentCategory'));
     }
 
     /**
@@ -40,8 +46,10 @@ class DeviceController extends Controller
     /**
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public function create()
+    public function create(Request $request)
     {
+        $currentCategory = Category::query()->firstWhere('id', '=', $request['category']);
+
         $maxOrder = null;
         $categories = Category::all();
         $lastDevice = Device::query()->orderByDesc('order')->first();
@@ -50,7 +58,7 @@ class DeviceController extends Controller
             $maxOrder = $lastDevice->order + 1;
         }
 
-        return view('pages.devices.create', compact('maxOrder', 'categories'));
+        return view('pages.devices.create', compact('maxOrder', 'categories', 'currentCategory'));
     }
 
     /**
@@ -79,11 +87,10 @@ class DeviceController extends Controller
      */
     public function edit(Device $device)
     {
-        return view('pages.devices.edit', [
-            'device' => $device,
-            'categories' => Category::all(),
-            'photos' => Photo::query()->where('device_id', '=', $device->id)->get()
-        ]);
+        $categories = Category::all();
+        $photos = Photo::query()->where('device_id', '=', $device->id)->get();
+
+        return view('pages.devices.edit', compact('device', 'categories', 'photos'));
     }
 
     /**
