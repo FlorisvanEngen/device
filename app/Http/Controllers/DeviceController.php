@@ -133,7 +133,7 @@ class DeviceController extends Controller
 
         $device->delete();
 
-        return redirect('/')->with('success', 'The device \'' . $device->name . '\' has been deleted!');
+        return redirect('/?category=' . $device->category_id)->with('success', 'The device \'' . $device->name . '\' has been deleted!');
     }
 
     /**

@@ -2,7 +2,9 @@
 
 namespace App\Http\Middleware;
 
+use Closure;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken as Middleware;
+use Illuminate\Session\TokenMismatchException;
 
 class VerifyCsrfToken extends Middleware
 {
@@ -15,16 +17,14 @@ class VerifyCsrfToken extends Middleware
         //
     ];
 
-//    protected function tokensMatch($request)
-//    {
-//        $tokensMatch = parent::tokensMatch($request);
-//
-//        if ($tokensMatch) {
-//            $oldtoken = $this->getTokenFromRequest($request);
-//            $request->session()->regenerateToken();
-//            $newtoken = $this->getTokenFromRequest($request);
-//        }
-//
-//        return $tokensMatch;
-//    }
+    public function handle($request, Closure $next)
+    {
+        try {
+            return parent::handle($request, $next);
+        } catch (TokenMismatchException $exception) {
+            return redirect()->back()->withErrors([
+                'message' => 'Your browser connection have expired. Try again to login.',
+            ]);
+        }
+    }
 }

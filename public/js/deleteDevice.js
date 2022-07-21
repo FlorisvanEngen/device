@@ -11,7 +11,8 @@ function deleteDevice(inId, inName) {
 
 function confDeleteDevice(inId) {
     try {
-        $("#deleteDevice").attr('action', _dir + '/devices/' + inId);
+        $("#deviceDeleteButton").removeAttr("onclick");
+        $("#deleteDevice").attr("action", _dir + "/devices/" + inId);
         $("#deleteDevice").submit();
     } catch (err) {
         console.error(err);
