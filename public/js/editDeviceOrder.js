@@ -42,24 +42,31 @@ function drop(event) {
     }
 }
 
+var blockSave = false;
+
 function saveOrder() {
-    $.ajax({
-        url: _dir + '/devices/order',
-        type: "POST",
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        },
-        data: {
-            inDevices: devices
-        },
-        success: function (d) {
-            if (d.success === true){
-                window.location = _dir + "/?category=" + categoryId;
+    if (!blockSave) {
+        blockSave = true;
+        $.ajax({
+            url: _dir + '/devices/order',
+            type: "POST",
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            data: {
+                inDevices: devices
+            },
+            success: function (d) {
+                if (d.success === true) {
+                    window.location = _dir + "/?category=" + categoryId;
+                }
+                blockSave = false;
+            },
+            error: function (e) {
+                blockSave = false;
+                console.error(e);
             }
-        },
-        error: function (e) {
-            console.error(e);
-        }
-    });
+        });
+    }
 }
 

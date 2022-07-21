@@ -20,8 +20,8 @@
             </select>
             <x-form.error name="category_id"/>
         </div>
-        <x-form.input name="order" type="number" onkeydown="onlyNumbers(event)" value="{{($maxOrder ?? old('order'))}}"
-                      required/>
+        <x-form.input name="order" type="number" onkeydown="onlyNumbers(event)"
+                      value="{{($maxOrder ?? old('order'))}}" required/>
         <x-form.textarea name="description" required/>
         <x-form.button>
             Add device
