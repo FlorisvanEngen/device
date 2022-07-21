@@ -1,0 +1,42 @@
+@props(['devices'])
+
+<x-device.device-table :devices="$devices">
+    <colgroup>
+        <col style="width: 10%;">
+        <col style="width: 20%;">
+        <col style="width: 15%;">
+        <col style="width: 15%;">
+        <col style="width: 20%;">
+        <col style="width: 20%;">
+    </colgroup>
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Category</th>
+        <th>Order</th>
+        <th>Created at</th>
+        <th></th>
+    </tr>
+    @if(count($devices) > 0)
+        @foreach($devices as $device)
+            <tr data-deviceid="{{$device->id}}">
+                <td>{{$device->id}}</td>
+                <td>{{$device->name}}</td>
+                <td>{{$device->category->name}}</td>
+                <td>{{$device->order}}</td>
+                <td>{{$device->created_at->format('H:i:s d-m-Y')}}</td>
+                <td>
+                    <a class="btn btn-link btn-sm" href="/devices/{{$device->id}}/edit">Edit</a>
+                    <button type="button" class="btn btn-link link-danger btn-sm"
+                            onclick="deleteDevice({{$device->id . ',\'' . $device->name . '\''}})">Delete
+                    </button>
+                </td>
+            </tr>
+        @endforeach
+    @else
+        <x-device.no-device-found/>
+    @endif
+</x-device.device-table>
+<a class="btn btn-primary" href="/devices/create">Create</a>
+<a class="btn btn-primary" href="/devices/order">Change the order</a>
+<x-delete-device-modal/>

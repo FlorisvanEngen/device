@@ -19,10 +19,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function (){
-//    Session::flush();
-    return view('index');
-});
+Route::get('/', [DeviceController::class, 'index']);
 
 Route::get('register', [RegisterController::class, 'create'])->middleware('guest');
 Route::post('register', [RegisterController::class, 'store'])->middleware('guest');
@@ -36,7 +33,6 @@ Route::post('devices/order', [OrderController::class, 'store'])->middleware('aut
 
 Route::post('devices', [DeviceController::class, 'store'])->middleware('auth');
 Route::get('devices/create', [DeviceController::class, 'create'])->middleware('auth');
-Route::get('devices', [DeviceController::class, 'index']);
 Route::get('devices/{device}/edit', [DeviceController::class, 'edit'])->middleware('auth');
 Route::get('devices/{device}', [DeviceController::class, 'show']);
 Route::patch('devices/{device}', [DeviceController::class, 'update'])->middleware('auth');

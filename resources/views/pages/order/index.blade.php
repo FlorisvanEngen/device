@@ -6,7 +6,7 @@
     <h1>Change the order for the devices</h1>
     <div class="mb-3">
         <button type="button" class="btn btn-primary" onclick="saveOrder()">Save</button>
-        <a class="btn btn-secondary" href="{{url('/devices')}}">Cancel</a>
+        <a class="btn btn-secondary" href="{{url('/')}}">Cancel</a>
     </div>
     <table class="table table-striped">
         <colgroup>
@@ -36,5 +36,5 @@
         @endforeach
     </table>
     <button type="button" class="btn btn-primary" onclick="saveOrder()">Save</button>
-    <a class="btn btn-secondary" href="{{url('/devices')}}">Cancel</a>
+    <a class="btn btn-secondary" href="{{url('/')}}">Cancel</a>
 </x-layout>

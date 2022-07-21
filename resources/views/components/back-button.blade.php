@@ -1,1 +1,1 @@
-<a class="link-dark" href="{{url('/devices')}}"><- Back to devices</a>
+<a class="link-dark" href="{{url('/')}}"><- Back to devices</a>

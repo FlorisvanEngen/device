@@ -8,4 +8,10 @@ main.container {
   min-height: calc(100vh - 225px);
 }
 
+#deviceTable tr:hover td {
+  --bs-table-accent-bg: none;
+  background-color: #c1c1c1;
+  cursor: pointer;
+}
+
 /*# sourceMappingURL=app.css.map */

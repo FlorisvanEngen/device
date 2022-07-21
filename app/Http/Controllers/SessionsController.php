@@ -12,7 +12,7 @@ class SessionsController extends Controller
      */
     public function create()
     {
-        return view('sessions.create');
+        return view('pages.sessions.create');
     }
 
     /**
@@ -32,7 +32,7 @@ class SessionsController extends Controller
         }
 
         session()->regenerate();
-        return redirect('/devices')->with('success', 'Login successful!');
+        return redirect('/')->with('success', 'Login successful!');
     }
 
     /**

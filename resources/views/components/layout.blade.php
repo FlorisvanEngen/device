@@ -9,15 +9,14 @@
     {{-- Css --}}
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-{{--    <link href="{{url('/css/app.css')}}" rel="stylesheet">--}}
+    <link href="{{url('/css/app.css')}}" rel="stylesheet">
 
     {{-- Script --}}
-{{--    <script src="{{url('/js/jquery.min.js')}}" type="text/javascript"></script>--}}
+    <script src="{{url('/js/jquery.min.js')}}" type="text/javascript"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
             crossorigin="anonymous"></script>
 
-    @vite('resources/js/app.js')
     <script type="text/javascript">
         var _dir = "{{url('')}}";
     </script>
@@ -34,12 +33,9 @@
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link{{(Request::url() == url('') ? ' active' : '')}}" aria-current="page" href="{{url('')}}">Home</a>
+                    <a class="nav-link{{(Request::url() == url('/') ? ' active' : '')}}" aria-current="page" href="{{url('/')}}">Devices</a>
                 </li>
                 @auth
-                    <li class="nav-item">
-                        <a class="nav-link{{(Request::url() == url('/devices') ? ' active' : '')}}" aria-current="page" href="{{url('/devices')}}">Devices</a>
-                    </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
                            data-bs-toggle="dropdown" aria-expanded="false">
@@ -56,9 +52,6 @@
                         </ul>
                     </li>
                 @else
-                    <li class="nav-item">
-                        <a class="nav-link{{(Request::url() == url('/devices') ? ' active' : '')}}" aria-current="page" href="{{url('/devices')}}">Devices</a>
-                    </li>
                     <li class="nav-item">
                         <a class="nav-link{{(Request::url() == url('/login') ? ' active' : '')}}" aria-current="page" href="{{url('/login')}}">Login</a>
                     </li>
@@ -77,9 +70,8 @@
     <div class="container">
         <div class="py-3">
             <ul class="nav justify-content-center border-bottom pb-3 mb-3">
-                <li class="nav-item"><a href="{{url('')}}" class="nav-link px-2 text-muted">Home</a></li>
+                <li class="nav-item"><a href="{{url('/')}}" class="nav-link px-2 text-muted">Devices</a></li>
                 @auth()
-                    <li class="nav-item"><a href="{{url('/devices')}}" class="nav-link px-2 text-muted">Devices</a></li>
 
                     <form method="POST" action="{{url('/logout')}}">
                         @csrf

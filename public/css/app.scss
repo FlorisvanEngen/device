@@ -1,4 +1,5 @@
 $disabledColor: #e9ecef;
+$hoverColor: #c1c1c1;
 
 label.form-control.disabled {
     background-color: $disabledColor;
@@ -8,4 +9,10 @@ label.form-control.disabled {
 
 main.container {
     min-height: calc(100vh - 225px);
+}
+
+#deviceTable tr:hover td {
+    --bs-table-accent-bg: none;
+    background-color: $hoverColor;
+    cursor: pointer;
 }

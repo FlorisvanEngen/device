@@ -1,4 +1,4 @@
-{{--<script src="{{url('/js/deleteDevice.js')}}" type="text/javascript"></script>--}}
+<script src="{{url('/js/deleteDevice.js')}}" type="text/javascript"></script>
 <div id="deleteDeviceModal" class="modal fade" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">

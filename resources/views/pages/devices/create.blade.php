@@ -1,6 +1,6 @@
 <x-layout>
     {{-- Scripts --}}
-{{--    <script src="{{url('/js/validation.js')}}" type="text/javascript"></script>--}}
+    <script src="{{url('/js/validation.js')}}" type="text/javascript"></script>
 
     <h1>Create a device</h1>
     <x-back-button/>

@@ -11,7 +11,7 @@ class RegisterController extends Controller
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function create(){
-        return view('register.create');
+        return view('pages.register.create');
     }
 
     /**

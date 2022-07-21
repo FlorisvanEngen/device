@@ -17,7 +17,7 @@ class DeviceController extends Controller
      */
     public function index()
     {
-        return view('devices.index', [
+        return view('pages.devices.index', [
             'devices' => Device::query()->orderBy('order')->filter(request(['category']))->paginate(20)->withQueryString(),
             'categories' => Category::all(),
             'currentCategory' => Category::firstWhere('id', request('category'))
@@ -30,7 +30,7 @@ class DeviceController extends Controller
      */
     public function show(Device $device)
     {
-        return view('devices.show', [
+        return view('pages.devices.show', [
             'device' => $device,
             'categories' => Category::all(),
             'photos' => Photo::query()->where('device_id', '=', $device->id)->get()
@@ -50,7 +50,7 @@ class DeviceController extends Controller
             $maxOrder = $lastDevice->order + 1;
         }
 
-        return view('devices.create', compact('maxOrder', 'categories'));
+        return view('pages.devices.create', compact('maxOrder', 'categories'));
     }
 
     /**
@@ -79,7 +79,7 @@ class DeviceController extends Controller
      */
     public function edit(Device $device)
     {
-        return view('devices.edit', [
+        return view('pages.devices.edit', [
             'device' => $device,
             'categories' => Category::all(),
             'photos' => Photo::query()->where('device_id', '=', $device->id)->get()
@@ -126,7 +126,7 @@ class DeviceController extends Controller
 
         $device->delete();
 
-        return redirect('/devices')->with('success', 'The device \'' . $device->name . '\' has been deleted!');
+        return redirect('/')->with('success', 'The device \'' . $device->name . '\' has been deleted!');
     }
 
     /**

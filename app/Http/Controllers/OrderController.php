@@ -14,7 +14,7 @@ class OrderController extends Controller
      */
     public function index()
     {
-        return view('order.index', ['devices' => Device::query()->orderBy('order')->get()]);
+        return view('pages.order.index', ['devices' => Device::query()->orderBy('order')->get()]);
     }
 
     /**
