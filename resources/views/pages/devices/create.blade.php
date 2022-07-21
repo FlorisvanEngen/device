@@ -1,7 +1,4 @@
 <x-layout>
-    {{-- Scripts --}}
-    <script src="{{url('/js/validation.js')}}" type="text/javascript"></script>
-
     <h1>Create a device</h1>
     <x-back-button :category="$currentCategory"/>
     <form method="POST" action="/devices" enctype="multipart/form-data" autocomplete="off">
@@ -20,7 +17,7 @@
             </select>
             <x-form.error name="category_id"/>
         </div>
-        <x-form.input name="order" type="number" onkeydown="onlyNumbers(event)"
+        <x-form.input name="order" type="number"
                       value="{{($maxOrder ?? old('order'))}}" required/>
         <x-form.textarea name="description" required/>
         <x-form.button>

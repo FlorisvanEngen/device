@@ -1,5 +1,4 @@
 @if(session()->has('success'))
-    <script type="application/javascript" src="{{ url('/js/message.js') }}"></script>
     <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
         <div class="toast-container">
             <div id="succesToast" class="toast fade" role="alert" aria-live="assertive" aria-atomic="true"

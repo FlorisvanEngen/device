@@ -24,8 +24,8 @@
     <x-form.textarea name="description" value="{{$device->description}}" disabled/>
     @auth
         <a class="btn btn-primary" href="/devices/{{$device->id}}/edit">Edit</a>
-        <button type="button" class="btn btn-danger"
-                onclick="deleteDevice({{$device->id . ',\'' . $device->name . '\''}})">
+        <button type="button" class="btn btn-danger delete-device"
+                data-id="{{$device->id}}" data-name="{{$device->name}}">
             Delete
         </button>
     @endauth

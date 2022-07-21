@@ -1,9 +1,4 @@
 <x-layout>
-    {{-- Scripts --}}
-    <script src="{{url('/js/deletePdf.js')}}" type="text/javascript"></script>
-    <script src="{{url('/js/deletePhoto.js')}}" type="text/javascript"></script>
-    <script src="{{url('/js/validation.js')}}" type="text/javascript"></script>
-
     <h1>Device: {{$device->name}}</h1>
     <x-back-button :category="$device->category"/>
     <form method="POST" action="/devices/{{$device->id}}" enctype="multipart/form-data" autocomplete="off">
@@ -18,7 +13,8 @@
                         <a href="{{url($device->pdf_path)}}"
                            target="_blank">{{ $device->pdf_name }}</a>
                     </label>
-                    <button class="btn btn-danger ms-2" type="button" onclick="deletepdf({{$device->id . ',' . auth()->user()->id}})">
+                    <button type="button" class="btn btn-danger ms-2 delete-pdf"
+                            data-id="{{$device->id}}" data-userid="{{auth()->user()->id}}">
                         Delete
                     </button>
                 </div>
@@ -39,7 +35,7 @@
             </select>
             <x-form.error name="category_id"/>
         </div>
-        <x-form.input name="order" value="{{(old('order') ?: $device->order)}}" type="number" onkeydown="onlyNumbers(event)" required/>
+        <x-form.input name="order" value="{{(old('order') ?: $device->order)}}" type="number" required/>
         <x-form.textarea name="description" value="{{(old('description') ?: $device->description)}}" required/>
         <x-form.button>
             Update device
@@ -68,7 +64,7 @@
                         <label class="form-label text-center">
                             {{ $photo->name }}
                         </label>
-                        <button type="button" class="btn btn-danger" onclick="deletePhoto({{$photo->id}})">
+                        <button type="button" class="btn btn-danger delete-img" data-id="{{$photo->id}}">
                             Delete
                         </button>
                     </div>

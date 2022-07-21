@@ -27,8 +27,9 @@
                 <td>{{$device->created_at->format('H:i:s d-m-Y')}}</td>
                 <td>
                     <a class="btn btn-link btn-sm" href="/devices/{{$device->id}}/edit">Edit</a>
-                    <button type="button" class="btn btn-link link-danger btn-sm"
-                            onclick="deleteDevice({{$device->id . ',\'' . $device->name . '\''}})">Delete
+                    <button type="button" class="btn btn-link link-danger btn-sm delete-device"
+                            data-id="{{$device->id}}" data-name="{{$device->name}}">
+                        Delete
                     </button>
                 </td>
             </tr>

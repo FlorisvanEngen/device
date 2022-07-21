@@ -20,6 +20,7 @@ class PDFController extends Controller
             abort(404);
         }
 
+        $path = Storage::path($path);
         $headers = [
             'Content-Type' => 'application/pdf',
             'Content-Disposition' => 'inline; filename="' . $filename . '"'

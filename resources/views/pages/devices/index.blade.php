@@ -1,5 +1,4 @@
 <x-layout>
-    <script type="application/javascript" src="{{url('js/devices.js')}}"></script>
     <h1>All devices</h1>
     {{ $devices->links() }}
     <ul class="nav nav-tabs">
