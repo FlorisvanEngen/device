@@ -1,7 +1,9 @@
 @if(session()->has('success'))
+    <script type="application/javascript" src="{{ url('/js/message.js') }}"></script>
     <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
         <div class="toast-container">
-            <div id="succesToast" class="toast fade show" role="alert" aria-live="assertive" aria-atomic="true">
+            <div id="succesToast" class="toast fade" role="alert" aria-live="assertive" aria-atomic="true"
+                 data-bs-autohide="true">
                 <div class="toast-header">
                     <strong class="me-auto">Success!</strong>
                     <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>

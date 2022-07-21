@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Device;
 use App\Models\Photo;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
 
@@ -40,20 +42,30 @@ class DeviceController extends Controller
      */
     public function create()
     {
-        return view('devices.create', ['categories' => Category::all()]);
+        $maxOrder = null;
+        $categories = Category::all();
+        $lastDevice = Device::query()->orderByDesc('order')->first();
+
+        if (isset($lastDevice)) {
+            $maxOrder = $lastDevice->order + 1;
+        }
+
+        return view('devices.create', compact('maxOrder', 'categories'));
     }
 
     /**
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function store()
+    public function store(Request $request)
     {
         $attributes = $this->validateDevice();
 
         $attributes['created_by_id'] = request()->user()->id;
 
         if (isset($attributes['pdf_path'])) {
-            $attributes['pdf_path'] = $this->uploadFile(request()->file('pdf_path'));
+            $file = $request->file('pdf_path');
+            $attributes['pdf_name'] = $file->getClientOriginalName();
+            $attributes['pdf_path'] = $this->uploadFile($file);
         }
 
         $device = Device::create($attributes);
@@ -78,20 +90,22 @@ class DeviceController extends Controller
      * @param Device $device
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function update(Device $device)
+    public function update(Request $request, Device $device)
     {
         $attributes = $this->validateDevice($device);
 
-        $attributes['edited_by_id'] = request()->user()->id;
+        $attributes['edited_by_id'] = $request->user()->id;
         $attributes['updated_at'] = time();
 
         if (isset($attributes['pdf_path'])) {
-            $attributes['pdf_path'] = $this->uploadFile(request()->file('pdf_path'));
+            $file = $request->file('pdf_path');
+            $attributes['pdf_name'] = $file->getClientOriginalName();
+            $attributes['pdf_path'] = $this->uploadFile($file);
         }
 
         $device->update($attributes);
 
-        return redirect('/devices')->with('success', 'The device \'' . $device->name . '\' has been updated!');
+        return redirect('/devices/' . $device->id)->with('success', 'The device \'' . $device->name . '\' has been updated!');
     }
 
     /**
@@ -100,6 +114,16 @@ class DeviceController extends Controller
      */
     public function destroy(Device $device)
     {
+        $photos = Photo::query()->where('device_id', '=', $device->id)->get();
+
+        foreach ($photos as $photo) {
+            Storage::delete($photo->photo_path);
+        }
+
+        if (isset($device->pdf_path)) {
+            Storage::delete($device->pdf_path);
+        }
+
         $device->delete();
 
         return redirect('/devices')->with('success', 'The device \'' . $device->name . '\' has been deleted!');

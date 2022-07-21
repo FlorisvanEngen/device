@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('name', 30)->unique();
             $table->text('description');
             $table->bigInteger('order');
+            $table->string('pdf_name')->nullable();
             $table->string('pdf_path')->nullable();
             $table->timestamps();
         });

@@ -1,4 +1,4 @@
-function deletePdf(inId, inUserId) {
+function deletepdf(inId, inUserId) {
     $.ajax({
         url: _dir + '/devices/pdf/' + inId.toString(),
         data: {'edited_by_id': inUserId},

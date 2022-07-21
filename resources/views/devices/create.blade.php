@@ -1,10 +1,10 @@
 <x-layout>
     {{-- Scripts --}}
-    <script src="{{url('/js/validation.js')}}" type="text/javascript"></script>
+{{--    <script src="{{url('/js/validation.js')}}" type="text/javascript"></script>--}}
 
     <h1>Create a device</h1>
     <x-back-button/>
-    <form method="POST" action="/devices" enctype="multipart/form-data">
+    <form method="POST" action="/devices" enctype="multipart/form-data" autocomplete="off">
         @csrf
         <x-form.input name="name" maxlength="30" required/>
         <x-form.input name="pdf_path" type="file" accept="application/pdf"/>
@@ -18,7 +18,7 @@
             </select>
             <x-form.error name="category_id"/>
         </div>
-        <x-form.input name="order" type="number" onkeydown="onlyNumbers(event)" required/>
+        <x-form.input name="order" type="number" onkeydown="onlyNumbers(event)" value="{{($maxOrder ?? old('order'))}}" required/>
         <x-form.textarea name="description" required/>
         <x-form.button>
             Add device

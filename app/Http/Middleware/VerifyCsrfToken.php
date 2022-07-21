@@ -14,4 +14,17 @@ class VerifyCsrfToken extends Middleware
     protected $except = [
         //
     ];
+
+//    protected function tokensMatch($request)
+//    {
+//        $tokensMatch = parent::tokensMatch($request);
+//
+//        if ($tokensMatch) {
+//            $oldtoken = $this->getTokenFromRequest($request);
+//            $request->session()->regenerateToken();
+//            $newtoken = $this->getTokenFromRequest($request);
+//        }
+//
+//        return $tokensMatch;
+//    }
 }

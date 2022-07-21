@@ -7,7 +7,6 @@ use App\Http\Controllers\DeviceController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SessionsController;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Session;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,18 +31,18 @@ Route::get('login', [SessionsController::class, 'create'])->name('login')->middl
 Route::post('sessions', [SessionsController::class, 'store'])->middleware('guest');
 Route::post('logout', [SessionsController::class, 'destroy'])->middleware('auth');
 
-Route::get('devices/order', [OrderController::class, 'index'])->middleware('admin');
-Route::post('devices/order', [OrderController::class, 'store'])->middleware('admin');
+Route::get('devices/order', [OrderController::class, 'index'])->middleware('auth');
+Route::post('devices/order', [OrderController::class, 'store'])->middleware('auth');
 
-Route::post('devices', [DeviceController::class, 'store'])->middleware('admin');
-Route::get('devices/create', [DeviceController::class, 'create'])->middleware('admin');
-Route::get('devices', [DeviceController::class, 'index'])->middleware('auth');
-Route::get('devices/{device}/edit', [DeviceController::class, 'edit'])->middleware('admin');
-Route::get('devices/{device}', [DeviceController::class, 'show'])->middleware('auth');
-Route::patch('devices/{device}', [DeviceController::class, 'update'])->middleware('admin');
-Route::delete('devices/{device}', [DeviceController::class, 'destroy'])->middleware('admin');
+Route::post('devices', [DeviceController::class, 'store'])->middleware('auth');
+Route::get('devices/create', [DeviceController::class, 'create'])->middleware('auth');
+Route::get('devices', [DeviceController::class, 'index']);
+Route::get('devices/{device}/edit', [DeviceController::class, 'edit'])->middleware('auth');
+Route::get('devices/{device}', [DeviceController::class, 'show']);
+Route::patch('devices/{device}', [DeviceController::class, 'update'])->middleware('auth');
+Route::delete('devices/{device}', [DeviceController::class, 'destroy'])->middleware('auth');
 
-Route::delete('devices/pdf/{device}', [PDFController::class, 'destroy'])->middleware('admin');
+Route::delete('devices/pdf/{device}', [PDFController::class, 'destroy'])->middleware('auth');
 
-Route::post('devices/photo/{device}', [PhotoController::class, 'store'])->middleware('admin');
-Route::delete('devices/photo/{photo}', [PhotoController::class, 'destroy'])->middleware('admin');
+Route::post('devices/photo/{device}', [PhotoController::class, 'store'])->middleware('auth');
+Route::delete('devices/photo/{photo}', [PhotoController::class, 'destroy'])->middleware('auth');

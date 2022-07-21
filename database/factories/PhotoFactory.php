@@ -19,7 +19,8 @@ class PhotoFactory extends Factory
     {
         return [
             'device_id' => Device::factory(),
-            'photo_path' => $this->faker->slug
+            'name' => $this->faker->name,
+            'photo_path' => $this->faker->unique()->slug
         ];
     }
 }

@@ -6,7 +6,7 @@
 
     <h1>Device: {{$device->name}}</h1>
     <x-back-button/>
-    <form method="POST" action="/devices/{{$device->id}}" enctype="multipart/form-data">
+    <form method="POST" action="/devices/{{$device->id}}" enctype="multipart/form-data" autocomplete="off">
         @method('PATCH')
         @csrf
         <x-form.input name="name" value="{{(old('name') ?: $device->name)}}" maxlength="30" required/>
@@ -16,9 +16,9 @@
                 <div id="pdfPathLabel" class="d-flex align-items-start">
                     <label class="form-control">
                         <a href="{{url('/storage/' . $device->pdf_path)}}"
-                           target="_blank">{{ str_replace('pdf/', '', $device->pdf_path) }}</a>
+                           target="_blank">{{ $device->pdf_name }}</a>
                     </label>
-                    <button class="btn btn-danger ms-2" type="button" onclick="deletePdf({{$device->id . ',' . auth()->user()->id}})">
+                    <button class="btn btn-danger ms-2" type="button" onclick="deletepdf({{$device->id . ',' . auth()->user()->id}})">
                         Delete
                     </button>
                 </div>
@@ -65,6 +65,9 @@
                         <div class="p-2">
                             <img src="{{url('/storage/'. $photo->photo_path)}}" width="100%">
                         </div>
+                        <label class="form-label text-center">
+                            {{ $photo->name }}
+                        </label>
                         <button type="button" class="btn btn-danger" onclick="deletePhoto({{$photo->id}})">
                             Delete
                         </button>

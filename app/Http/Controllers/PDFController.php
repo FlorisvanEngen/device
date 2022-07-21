@@ -20,6 +20,7 @@ class PDFController extends Controller
 
         Storage::delete($device->pdf_path);
 
+        $attributes['pdf_name'] = null;
         $attributes['pdf_path'] = null;
         $attributes['updated_at'] = time();
         $device->update($attributes);

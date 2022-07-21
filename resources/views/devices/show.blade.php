@@ -5,8 +5,10 @@
     <div class="mb-3">
         <x-form.label name="pdf_path"/>
         <label class="form-control disabled">
+            @if($device->pdf_path !== null)
             <a href="{{url('/storage/' . $device->pdf_path)}}"
-               target="_blank">{{ str_replace('pdf/', '', $device->pdf_path) }}</a>
+               target="_blank">{{ $device->pdf_name }}</a>
+            @endif
         </label>
     </div>
     <div class="mb-3">
@@ -20,13 +22,13 @@
     </div>
     <x-form.input name="order" disabled value="{{$device->order}}"/>
     <x-form.textarea name="description" value="{{$device->description}}" disabled/>
-    @can('admin')
+    @auth
         <a class="btn btn-primary" href="/devices/{{$device->id}}/edit">Edit</a>
         <button type="button" class="btn btn-danger"
                 onclick="deleteDevice({{$device->id . ',\'' . $device->name . '\''}})">
             Delete
         </button>
-    @endcan
+    @endauth
     @if(count($photos) > 0)
         <hr/>
         <h1>Device photo's</h1>
@@ -37,6 +39,9 @@
                         <div class="p-2">
                             <img src="{{url('/storage/'. $photo->photo_path)}}" width="100%">
                         </div>
+                        <label class="form-label text-center">
+                            {{ $photo->name }}
+                        </label>
                     </div>
                 @endforeach
             </div>
