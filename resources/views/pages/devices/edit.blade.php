@@ -1,6 +1,6 @@
 <x-layout>
     <h1>Device: {{$device->name}}</h1>
-    <x-back-button :category="$device->category"/>
+    <x-device.back-button :category="$device->category"/>
     <form method="POST" action="/devices/{{$device->id}}" enctype="multipart/form-data" autocomplete="off">
         @method('PATCH')
         @csrf

@@ -1,10 +1,7 @@
 $(document).ready(function () {
-    $("button[type=button].delete-device").on("click", function () {
+     $(".delete-device").on("click", function () {
         let id = $(this).attr("data-id");
         let name = $(this).attr("data-name");
-
-        console.log(id);
-        console.log(name);
 
         $("#deviceId").html(id);
         $("#deviceName").html(name);

@@ -1,6 +1,6 @@
 <x-layout>
     <h1>Create a device</h1>
-    <x-back-button :category="$currentCategory"/>
+    <x-device.back-button :category="$currentCategory"/>
     <form method="POST" action="/devices" enctype="multipart/form-data" autocomplete="off">
         @csrf
         <x-form.input name="name" maxlength="30" required/>

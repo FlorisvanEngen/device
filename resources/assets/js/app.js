@@ -1,5 +1,7 @@
+import '../css/bootstrap.min.css';
 import '../css/app.css';
 import './jquery.min';
+import './bootstrap.min';
 import './deleteDevice';
 import './deletepdf';
 import './deletePhoto';

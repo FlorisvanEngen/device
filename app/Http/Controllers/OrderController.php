@@ -24,7 +24,7 @@ class OrderController extends Controller
         $categories = Category::all();
         $devices = Device::query()->orderBy('order')->filter(compact('currentCategory'))->get();
 
-        return view('pages.order.index', compact('devices', 'categories', 'currentCategory'));
+        return view('pages.devices.order.index', compact('devices', 'categories', 'currentCategory'));
     }
 
     /**

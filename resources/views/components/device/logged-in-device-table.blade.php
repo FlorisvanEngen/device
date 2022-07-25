@@ -40,4 +40,4 @@
 </x-device.device-table>
 <a class="btn btn-primary" href="/devices/create?category={{$currentCategory->id}}">Create</a>
 <a class="btn btn-primary" href="/devices/order?category={{$currentCategory->id}}">Change the order</a>
-<x-delete-device-modal/>
+<x-device.delete-device-modal/>

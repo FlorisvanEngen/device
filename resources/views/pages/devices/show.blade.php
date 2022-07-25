@@ -1,6 +1,6 @@
 <x-layout>
     <h1>Device: {{$device->name}}</h1>
-    <x-back-button :category="$device->category"/>
+    <x-device.back-button :category="$device->category"/>
     <x-form.input name="name" disabled value="{{$device->name}}"/>
     <div class="mb-3">
         <x-form.label name="pdf_path"/>
@@ -47,5 +47,5 @@
             </div>
         </div>
     @endif
-    <x-delete-device-modal/>
+    <x-device.delete-device-modal/>
 </x-layout>
