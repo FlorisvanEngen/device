@@ -67,15 +67,15 @@ php artisan key:generate
 php artisan migrate:fresh --seed
 ```
 
-11. Start een andere git bash applicatie en voer de commando "npm run dev"[^3] uit. Dit zorgt ervoor dat de css en
-    javascript code op de juiste manier word geladen. [^4]
+11. Voer de commando "npm run dev" uit. Hiermee worden de benodigde scss en js bestanden gecompileerd en gekopieerd naar
+    de public map.
 
 ```text
 npm run dev
 ```
 
 12. Start de applicatie op door de commando "php artisan serve" uit te voeren. De url van de applicatie staat in de
-    Git Bash terminal. [^5]
+    Git Bash terminal. [^3]
 
 ```text
 php artisan serve
@@ -90,7 +90,7 @@ Als de applicatie al op de computer staat en heeft al een keer gedraaid, dan kan
 1. Open XAMPP en start de module mysql.
 2. Open Git Bash en ga naar de hoofdmap van de applicatie.
 3. Start de applicatie op door de commando "php artisan serve" uit te voeren. De url van de applicatie staat in de
-   Git Bash terminal. [^5]
+   Git Bash terminal. [^3]
 
 ```text
 php artisan serve
@@ -101,12 +101,5 @@ php artisan serve
 [^2]: De App_key sleutel mag alleen aangemaakt worden bij nieuwe applicaties of bij applicaties dat niet met andere
 databases samenwerkt. Deze sleutel word namelijk gebruikt om de database gegevens te kunnen ver- en ontsleutelen.
 
-[^3]: Als de commando "npm run build" word gebruikt geeft de js code de error "ReferenceError: $ is not defined". Dit
-komt doordat de jquery code door vite niet juist word geladen. Een oplossing hiervoor is om de commando "npm run dev"
-uit te voeren (Zie note hieronder[^4]) of door de jquery code in de public map al op te slaan.
-
-[^4]: Terwijl de commando "npm run dev" word uitgevoerd mag de Git Bash terminal niet gesloten worden. Dit zorgt er
-namelijk voor dat de css en js code worden geladen.
-
-[^5]: Om de applicatie te kunnen gebruiken mag de Git Bash terminal niet gesloten worden. De commando "php artisan
+[^3]: Om de applicatie te kunnen gebruiken mag de Git Bash terminal niet gesloten worden. De commando "php artisan
 serve" moet ook uitgevoerd blijven worden. 
