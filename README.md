@@ -71,7 +71,7 @@ php artisan migrate:fresh --seed
     de public map.
 
 ```text
-npm run dev
+npm run prod
 ```
 
 12. Start de applicatie op door de commando "php artisan serve" uit te voeren. De url van de applicatie staat in de
