@@ -44,16 +44,16 @@ cp .env.example .env
 ```
 
 6. Configureer de db instellingen en de App_key. Dit kan via de volgende commando. (Als er geen bestaande App_key
-   beschikbaar is kan deze worden aangemaakt in stap 8)
+   beschikbaar is kan deze worden aangemaakt in stap 9)
 
 ```text
 nano .env
 ```
 
 7. Open XAMPP en start de module's apache en mysql.
-8. Ga naar [phpMyAdmin](http://localhost/phpmyadmin/index.php) en maak een database aan met de naam dat in stap 5 is
+8. Ga naar [phpMyAdmin](http://localhost/phpmyadmin/index.php) en maak een database aan met de naam dat in stap 6 is
    geconfigureerd. [^1]
-9. Als de App_key in stap 5 is ingesteld kan deze stap worden overgeslagen. Voer de commando "php artisan key:generate"
+9. Als de App_key in stap 6 is ingesteld kan deze stap worden overgeslagen. Voer de commando "php artisan key:generate"
    uit om een nieuwe App_key aan te maken. [^2]
 
 ```text
