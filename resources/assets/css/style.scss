@@ -1,0 +1,36 @@
+$disabledColor: #e9ecef;
+$hoverColor: #c1c1c1;
+$black: #000000;
+
+.nav-tabs {
+    border-bottom: 1px solid $black;
+}
+
+.nav-link {
+    color: $black;
+}
+
+.nav-link:focus, .nav-link:hover {
+    color: $black;
+}
+
+.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
+    border-color: $black $black #fff;
+    font-weight: bold;
+}
+
+label.form-control.disabled {
+    background-color: $disabledColor;
+    min-height: 38px;
+    opacity: 1;
+}
+
+main.container {
+    min-height: calc(100vh - 225px);
+}
+
+#deviceTable tr:hover td {
+    --bs-table-accent-bg: none;
+    background-color: $hoverColor;
+    cursor: pointer;
+}

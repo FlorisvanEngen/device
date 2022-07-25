@@ -6,8 +6,11 @@
     {{-- Meta data --}}
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
+    {{-- Css --}}
+    <link rel="stylesheet" href="{{asset('build/css/style.css')}}">
+
     {{-- Script --}}
-    @vite(['resources/assets/js/app.js'])
+    <script src="{{asset('build/js/app.js')}}" type="text/javascript"></script>
 
     <script type="text/javascript">
         var _dir = "{{url('')}}";
