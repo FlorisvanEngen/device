@@ -61,28 +61,20 @@ php artisan key:generate
 ```
 
 10. Voer de commando "php artisan migrate:fresh --seed" uit. Hiermee word de database tabellen aangemaakt en voorzien
-    van
-    dummy data.
+    van dummy data.
 
 ```text
 php artisan migrate:fresh --seed
 ```
 
-11. Voer de commando "php artisan storage:link" uit. Hiermee word een snelkoppeling gemaakt van de public map naar de
-    storage map. Hierdoor zijn de files in de storage map op de website beschikbaar.
-
-```text
-php artisan storage:link
-```
-
-12. Start een andere git bash applicatie en voer de commando "npm run dev"[^3] uit. Dit zorgt ervoor dat de css en
+11. Start een andere git bash applicatie en voer de commando "npm run dev"[^3] uit. Dit zorgt ervoor dat de css en
     javascript code op de juiste manier word geladen. [^4]
 
 ```text
 npm run dev
 ```
 
-13. Start de applicatie op door de commando "php artisan serve" uit te voeren. De url van de applicatie staat in de
+12. Start de applicatie op door de commando "php artisan serve" uit te voeren. De url van de applicatie staat in de
     Git Bash terminal. [^5]
 
 ```text
