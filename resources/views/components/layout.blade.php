@@ -36,7 +36,6 @@
                             Welcome, {{ auth()->user()->name }}
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <li><a class="dropdown-item" href="{{url('/devices/create')}}">Create a Device</a></li>
                             <form method="POST" action="{{url('/logout')}}">
                                 @csrf
                                 <li>

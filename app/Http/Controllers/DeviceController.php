@@ -50,9 +50,9 @@ class DeviceController extends Controller
     {
         $currentCategory = Category::query()->firstWhere('id', '=', $request['category']);
 
-        $maxOrder = null;
+        $maxOrder = 0;
         $categories = Category::all();
-        $lastDevice = Device::query()->orderByDesc('order')->first();
+        $lastDevice = Device::query()->where('category_id', '=', $request['category'])->orderByDesc('order')->first();
 
         if (isset($lastDevice)) {
             $maxOrder = $lastDevice->order + 1;
