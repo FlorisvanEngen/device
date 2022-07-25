@@ -9,7 +9,8 @@ Floris van Engen - 18-07-2022
 Om de applicatie lokaal te kunnen draaien moet de volgende software geïnstalleerd zijn:
 
 - [Composer](https://getcomposer.org/download/)
-- Een browser ([Chrome](https://www.google.com/intl/nl_nl/chrome/), [Firefox](https://www.mozilla.org/nl/firefox/new/), etc.)
+- Een browser ([Chrome](https://www.google.com/intl/nl_nl/chrome/), [Firefox](https://www.mozilla.org/nl/firefox/new/),
+  etc.)
 - [Git-gui](https://git-scm.com/download/win)
 - [XAMPP](https://www.apachefriends.org/)
 
@@ -42,8 +43,8 @@ npm install
 cp .env.example .env
 ```
 
-6. Configureer de db instellingen, App_key en pas de instelling filesystem_disk aan naar public. Dit kan via de volgende
-   commando. (Als er geen bestaande App_key beschikbaar is kan deze worden aangemaakt in stap 8)
+6. Configureer de db instellingen en de App_key. Dit kan via de volgende commando. (Als er geen bestaande App_key
+   beschikbaar is kan deze worden aangemaakt in stap 8)
 
 ```text
 nano .env
@@ -59,8 +60,9 @@ nano .env
 php artisan key:generate
 ```
 
-10. Voer de commando "php artisan migrate:fresh --seed" uit. Hiermee word de database tabellen aangemaakt en voorzien van
-   dummy data.
+10. Voer de commando "php artisan migrate:fresh --seed" uit. Hiermee word de database tabellen aangemaakt en voorzien
+    van
+    dummy data.
 
 ```text
 php artisan migrate:fresh --seed
@@ -73,8 +75,15 @@ php artisan migrate:fresh --seed
 php artisan storage:link
 ```
 
-12. Start de applicatie op door de commando "php artisan serve" uit te voeren. De url van de applicatie staat in de
-    Git Bash terminal. [^3]
+12. Start een andere git bash applicatie en voer de commando "npm run dev"[^3] uit. Dit zorgt ervoor dat de css en
+    javascript code op de juiste manier word geladen. [^4]
+
+```text
+npm run dev
+```
+
+13. Start de applicatie op door de commando "php artisan serve" uit te voeren. De url van de applicatie staat in de
+    Git Bash terminal. [^5]
 
 ```text
 php artisan serve
@@ -89,7 +98,7 @@ Als de applicatie al op de computer staat en heeft al een keer gedraaid, dan kan
 1. Open XAMPP en start de module mysql.
 2. Open Git Bash en ga naar de hoofdmap van de applicatie.
 3. Start de applicatie op door de commando "php artisan serve" uit te voeren. De url van de applicatie staat in de
-   Git Bash terminal. [^3]
+   Git Bash terminal. [^5]
 
 ```text
 php artisan serve
@@ -100,5 +109,12 @@ php artisan serve
 [^2]: De App_key sleutel mag alleen aangemaakt worden bij nieuwe applicaties of bij applicaties dat niet met andere
 databases samenwerkt. Deze sleutel word namelijk gebruikt om de database gegevens te kunnen ver- en ontsleutelen.
 
-[^3]: Om de applicatie te kunnen gebruiken mag de Git Bash terminal niet gesloten worden. De commando "php artisan
+[^3]: Als de commando "npm run build" word gebruikt geeft de js code de error "ReferenceError: $ is not defined". Dit
+komt doordat de jquery code door vite niet juist word geladen. Een oplossing hiervoor is om de commando "npm run dev"
+uit te voeren (Zie note hieronder[^4]) of door de jquery code in de public map al op te slaan.
+
+[^4]: Terwijl de commando "npm run dev" word uitgevoerd mag de Git Bash terminal niet gesloten worden. Dit zorgt er
+namelijk voor dat de css en js code worden geladen.
+
+[^5]: Om de applicatie te kunnen gebruiken mag de Git Bash terminal niet gesloten worden. De commando "php artisan
 serve" moet ook uitgevoerd blijven worden. 
