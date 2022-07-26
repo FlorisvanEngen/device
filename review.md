@@ -55,7 +55,7 @@
 4. ook, get() ipv all()
 5. daarnaast, query() komt in meerdere plekken, deze is overbodig, voegt niets aan je data of vraag
 6. zeer belangrijk, zuunig in je code en queries, laad alles in een keer, je stuurt drie queries, een voor first, tweede alle categorieën, derde devices,
-   doe maar alles een query, gebruik maar **eager loading**  with()  zo: Category::with('devices')->get();
+   doe maar alles een query, gebruik maar **eager loading**  with()  zo: Category::with('devices')->get(); ref https://laravel.com/docs/9.x/eloquent-relationships#eager-loading
 7. show() en create() zoals vermeld in het vorige punt
 8. Bondig manier voor get $lastDevice -> $lastDevice = Device::where('category_id', '=', $request['category'])->max('order') + 1;
 9. store() en update() validate maar de data voor, https://laravel.com/docs/9.x/validation#form-request-validation

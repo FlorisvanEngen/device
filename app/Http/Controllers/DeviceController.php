@@ -19,8 +19,10 @@ class DeviceController extends Controller
      */
     public function index()
     {
-        $currentCategory = Category::firstWhere('id', request('category'));
+        $currentCategory = Category::find(request('category'));
 
+
+        dd(Category::first());
         if (!isset($currentCategory)) {
             $currentCategory = Category::query()->orderBy('id')->first();
         }
