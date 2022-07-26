@@ -29,7 +29,8 @@
 2. Advies- De route DeviceController heb je alles voor gebruikt, hier beter Route::resources te gebruiken, lees maar hier https://laravel.com/docs/9.x/controllers#actions-handled-by-resource-controller
 3. Je heeft 2 controller voor pdfs en photos, beide zijn file, er is geen verschil tussen pdf en image anders dan andere type.
    Je kan een gebruiken, bijv. FileController, MediaController.
-   **Views**
+
+**Views**
 1. Wanneer komt een naam of beschrijving, gebruik maar {!! ipv {{, lees meer https://laravel.com/docs/master/blade#displaying-unescaped-data
 2. Advies - in form actions gebruik maar {{route('route naam', $var)}} ipv static urls, in lange urls met veel data, variables wordt handiger
 3. != null  is hetzelfde als zonder, bijv. if($device->pdf_path != null) is precies gelijk aan if($device->pdf_path) :)
