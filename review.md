@@ -22,3 +22,16 @@
 19. Bug - bij delete device pdf en foto's niet verwijderd uit de folder
 20. Bug - Lijst - Created at tijd klopt niet
 21. Bug - In logs laat veel bugs zien (Aanmaken van data)
+
+### Review 2 26-7-2022
+**script**
+1. Groupeer maar de routes, dat kun je zo doen Route::group(['middleware' => 'auth'], function () {});
+2. Advies- De route DeviceController heb je alles voor gebruikt, hier beter Route::resources te gebruiken, lees maar hier https://laravel.com/docs/9.x/controllers#actions-handled-by-resource-controller
+3. Je heeft 2 controller voor pdfs en photos, beide zijn file, er is geen verschil tussen pdf en image anders dan andere type.
+   Je kan een gebruiken, bijv. FileController, MediaController.
+   **Views**
+1. Wanneer komt een naam of beschrijving, gebruik maar {!! ipv {{, lees meer https://laravel.com/docs/master/blade#displaying-unescaped-data
+2. Advies - in form actions gebruik maar {{route('route naam', $var)}} ipv static urls, in lange urls met veel data, variables wordt handiger
+3. != null  is hetzelfde als zonder, bijv. if($device->pdf_path != null) is precies gelijk aan if($device->pdf_path) :)
+4. if(count($photos) > 0) is ook gelijk aan if(count($photos)) en gelijk aan if($photos) ;-)
+5. In change order file (views\pages\devices\order\index) heb je <script> boven en daar heb je php loop in js. Eerste script moet helemaal onder, eind van file, tweede don't mix talen met elkaar, ook als deze manier lijkt op te werken
