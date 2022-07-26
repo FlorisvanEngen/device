@@ -1,6 +1,10 @@
 # Device
 
-Floris van Engen - 18-07-2022
+Floris van Engen - 26-07-2022
+
+## Database diagram
+
+![database diagram](storage/readme/database-diagram-device.png)
 
 ## De applicatie lokaal kunnen laten draaien
 
