@@ -112,7 +112,7 @@ class DeviceController extends Controller
 
         $device->update($attributes);
 
-        return redirect('/devices/' . $device->id)->with('success', 'The device \'' . $device->name . '\' has been updated!');
+        return redirect('/devices/' . $device->id . '/edit')->with('success', 'The device \'' . $device->name . '\' has been updated!');
     }
 
     /**

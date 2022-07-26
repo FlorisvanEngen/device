@@ -20,9 +20,9 @@ class DeviceFactory extends Factory
         return [
             'category_id' => Category::factory(),
             'created_by_id' => 1,
-            'name' => $this->faker->unique()->word,
+            'name' => $this->faker->unique()->word(),
             'description' => $this->faker->paragraph(),
-            'order' => $this->faker->unique()->numerify
+            'order' => $this->faker->unique()->numerify()
         ];
     }
 }
