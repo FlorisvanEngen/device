@@ -1,6 +1,21 @@
 $(document).ready(function () {
+    var devices = [];
     var blockSave = false;
     var dragging, draggedOver;
+
+    $.ajax({
+        url: _dir + '/devices/order/' + categoryId,
+        type: "GET",
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        success: function (d) {
+            devices = d;
+        },
+        error: function (e) {
+            console.error(e);
+        }
+    });
 
     $("#deviceOrderTable tr[draggable=true]").on("dragstart", function (event) {
         dragging = event.target.id;
@@ -16,44 +31,48 @@ $(document).ready(function () {
     });
 
     function drop(event) {
-        event.preventDefault();
+        try {
+            event.preventDefault();
 
-        if (dragging != null && draggedOver != null) {
-            let draggingHtml = $("#" + dragging).prop('outerHTML')
-            $("#" + dragging).addClass("old");
-            $("#" + draggedOver).after(draggingHtml);
-            $("#" + dragging + ".old").remove();
+            if (dragging != null && draggedOver != null) {
+                let draggingHtml = $("#" + dragging).prop('outerHTML')
+                $("#" + dragging).addClass("old");
+                $("#" + draggedOver).after(draggingHtml);
+                $("#" + dragging + ".old").remove();
 
-            let draggingId = dragging.replace(/device_/g, "");
-            let draggedOverId = draggedOver.replace(/device_/g, "");
+                let draggingId = parseInt(dragging.replace(/device_/g, ""));
+                let draggedOverId = parseInt(draggedOver.replace(/device_/g, ""));
 
-            let device = devices.find(device => device.id === draggingId);
-            let draggingIndex = devices.findIndex(device => device.id === draggingId);
-            devices.splice(draggingIndex, 1);
+                let device = devices.find(device => device.id === draggingId);
+                let draggingIndex = devices.findIndex(device => device.id === draggingId);
+                devices.splice(draggingIndex, 1);
 
-            let draggedOverIndex = devices.findIndex(device => device.id === draggedOverId);
-            devices.splice(draggedOverIndex + 1, 0, device);
+                let draggedOverIndex = devices.findIndex(device => device.id === draggedOverId);
+                devices.splice(draggedOverIndex + 1, 0, device);
 
-            devices.forEach(function (device, index) {
-                device.order = index;
-                $("#order_" + device.id).html(index);
-            });
+                devices.forEach(function (device, index) {
+                    device.order = index;
+                    $("#order_" + device.id).html(index);
+                });
 
-            $("#" + dragging).on("dragstart", function (event) {
-                dragging = event.target.id;
-            });
+                $("#" + dragging).on("dragstart", function (event) {
+                    dragging = event.target.id;
+                });
 
-            $("#" + dragging).on("dragover", function (event) {
-                event.preventDefault();
-                draggedOver = $(event.target).parent("tr").attr("id");
-            });
+                $("#" + dragging).on("dragover", function (event) {
+                    event.preventDefault();
+                    draggedOver = $(event.target).parent("tr").attr("id");
+                });
 
-            $("#" + dragging).on("drop", function (event) {
-                drop(event)
-            });
+                $("#" + dragging).on("drop", function (event) {
+                    drop(event)
+                });
 
-            dragging = null;
-            draggedOver = null;
+                dragging = null;
+                draggedOver = null;
+            }
+        } catch (e) {
+            console.error(e);
         }
     }
 
@@ -72,6 +91,9 @@ $(document).ready(function () {
                 success: function (d) {
                     if (d.success === true) {
                         window.location = _dir + "/?category=" + categoryId;
+                    } else {
+                        $("#jsErrorToast .toast-body").html(d.errorMsg);
+                        $("#jsErrorToast").toast("show");
                     }
                     blockSave = false;
                 },

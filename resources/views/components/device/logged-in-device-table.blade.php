@@ -17,18 +17,18 @@
         <th>Created at</th>
         <th></th>
     </tr>
-    @if(count($devices) > 0)
+    @if(count($devices))
         @foreach($devices as $device)
-            <tr data-deviceid="{{$device->id}}">
-                <td>{{$device->id}}</td>
-                <td>{{$device->name}}</td>
-                <td>{{$device->category->name}}</td>
-                <td>{{$device->order}}</td>
-                <td>{{$device->created_at->format('H:i:s d-m-Y')}}</td>
+            <tr data-deviceid="{{ $device->id }}">
+                <td>{{ $device->id }}</td>
+                <td>{!! $device->name !!}</td>
+                <td>{!! $device->category->name !!}</td>
+                <td>{{ $device->order }}</td>
+                <td>{{ $device->created_at->format('H:i:s d-m-Y') }}</td>
                 <td>
-                    <a class="btn btn-link btn-sm" href="/devices/{{$device->id}}/edit">Edit</a>
+                    <a class="btn btn-link btn-sm" href="/devices/{{ $device->id }}/edit">Edit</a>
                     <button type="button" class="btn btn-link link-danger btn-sm delete-device"
-                            data-id="{{$device->id}}" data-name="{{$device->name}}">
+                            data-id="{{ $device->id }}" data-name="{{ $device->name }}">
                         Delete
                     </button>
                 </td>
@@ -38,6 +38,6 @@
         <x-device.no-device-found/>
     @endif
 </x-device.device-table>
-<a class="btn btn-primary" href="/devices/create?category={{$currentCategory->id}}">Create</a>
-<a class="btn btn-primary" href="/devices/order?category={{$currentCategory->id}}">Change the order</a>
+<a class="btn btn-primary" href="/devices/create?category={{ $currentCategory->id }}">Create</a>
+<a class="btn btn-primary" href="/devices/order?category={{ $currentCategory->id }}">Change the order</a>
 <x-device.delete-device-modal/>

@@ -16,5 +16,6 @@ mix.options({
  */
 
 mix.js('resources/assets/js/app.js', 'public/build/js/app.js')
+    .js('resources/assets/js/editDeviceOrder.js', 'public/build/js/editDeviceOrder.js')
     .sass('resources/assets/css/app.scss', 'public/build/css/style.css')
     .copy('node_modules/bootstrap-sass/assets/fonts/bootstrap/', 'public/build/fonts/bootstrap');

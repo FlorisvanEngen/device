@@ -1,7 +1,7 @@
 <x-layout>
     <h1>Create a device</h1>
     <x-device.back-button :category="$currentCategory"/>
-    <form method="POST" action="/devices" enctype="multipart/form-data" autocomplete="off">
+    <form method="POST" action="{{route('devices.store')}}" enctype="multipart/form-data" autocomplete="off">
         @csrf
         <x-form.input name="name" maxlength="30" required/>
         <x-form.input name="pdf" type="file" accept="application/pdf"/>

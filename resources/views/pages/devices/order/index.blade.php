@@ -1,8 +1,10 @@
 <x-layout>
-    <script>
-        var categoryId = {{ $currentCategory->id }};
-        var devices = [@foreach($devices as $device){'id': '{{$device->id}}', 'order': {{$device->order}}}{{ !$loop->last ? ',' : ''}}@endforeach];
-    </script>
+    <x-slot name="script">
+        <script src="{{asset('build/js/editDeviceOrder.js')}}" type="text/javascript"></script>
+        <script type="text/javascript">
+            var categoryId = {{ $currentCategory->id }};
+        </script>
+    </x-slot>
     <h1>Change the order for the devices</h1>
     <div class="mb-3">
         <button type="button" class="btn btn-primary save-order">Save</button>

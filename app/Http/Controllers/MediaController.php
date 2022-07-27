@@ -6,10 +6,8 @@ use App\Models\Device;
 use App\Models\Media;
 use Exception;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Validation\Rule;
 
 class MediaController extends Controller
 {

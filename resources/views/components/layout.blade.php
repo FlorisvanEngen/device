@@ -1,3 +1,5 @@
+@props(['script' => ''])
+
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
@@ -33,10 +35,10 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
                            data-bs-toggle="dropdown" aria-expanded="false">
-                            Welcome, {{ auth()->user()->name }}
+                            Welcome, {!! auth()->user()->name !!}
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <form method="POST" action="{{url('/logout')}}">
+                            <form method="POST" action="{{route('login.destroy')}}">
                                 @csrf
                                 <li>
                                     <button type="submit" class="btn btn-link dropdown-item">Logout</button>
@@ -65,7 +67,7 @@
             <ul class="nav justify-content-center border-bottom pb-3 mb-3">
                 <li class="nav-item"><a href="{{url('/')}}" class="nav-link px-2 text-muted">Devices</a></li>
                 @auth()
-                    <form method="POST" action="{{url('/logout')}}">
+                    <form method="POST" action="{{route('login.destroy')}}">
                         @csrf
                         <li class="nav-item">
                             <button type="submit" class="btn btn-link nav-link px-2 text-muted">Logout</button>
@@ -73,14 +75,14 @@
                     </form>
                 @else
                     <li class="nav-item"><a href="{{url('/login')}}" class="nav-link px-2 text-muted">Login</a></li>
-                    <li class="nav-item"><a href="{{url('/login')}}" class="nav-link px-2 text-muted">Register</a></li>
+                    <li class="nav-item"><a href="{{url('/register')}}" class="nav-link px-2 text-muted">Register</a></li>
                 @endauth
             </ul>
             <p class="text-center text-muted">© {{date('Y')}} Company, Inc</p>
         </div>
     </div>
 </footer>
-
 <x-message/>
+{{ $script }}
 </body>
 </html>

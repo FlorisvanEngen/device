@@ -14,13 +14,13 @@ return new class extends Migration {
     {
         Schema::create('devices', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('pdf_id')->unsigned()->nullable();
             $table->foreignId('category_id')->constrained()->restrictOnDelete();
             $table->foreignId('created_by_id')->constrained('users')->onDelete('RESTRICT');
             $table->foreignId('edited_by_id')->nullable()->constrained('users')->onDelete('SET NULL');
             $table->string('name', 30)->unique();
             $table->text('description');
             $table->bigInteger('order');
-            $table->bigInteger('pdf_id')->unsigned()->nullable();
             $table->timestamps();
         });
     }

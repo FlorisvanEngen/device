@@ -15,19 +15,17 @@
         <th>Order</th>
         <th>Created at</th>
     </tr>
-    @if(count($devices) > 0)
+    @if(count($devices))
         @foreach($devices as $device)
-            <tr data-deviceid="{{$device->id}}">
-                <td>{{$device->id}}</td>
-                <td>{{$device->name}}</td>
-                <td>{{$device->category->name}}</td>
-                <td>{{$device->order}}</td>
-                <td>{{$device->created_at->format('H:i:s d-m-Y')}}</td>
+            <tr data-deviceid="{{ $device->id }}">
+                <td>{{ $device->id }}</td>
+                <td>{!! $device->name !!}</td>
+                <td>{!! $device->category->name !!}</td>
+                <td>{{ $device->order }}</td>
+                <td>{{ $device->created_at->format('H:i:s d-m-Y') }}</td>
             </tr>
         @endforeach
     @else
-        <tr>
-            <td colspan="6">No devices has been found.</td>
-        </tr>
+        <x-device.no-device-found />
     @endif
 </x-device.device-table>

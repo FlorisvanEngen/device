@@ -1,19 +1,19 @@
 <x-layout>
     <h1>Device: {{$device->name}}</h1>
     <x-device.back-button :category="$device->category"/>
-    <x-form.input name="name" disabled value="{{$device->name}}"/>
+    <x-form.input name="name" disabled value="{!! $device->name !!}"/>
     <div class="mb-3">
         <x-form.label name="pdf"/>
         <label class="form-control disabled">
             @if($device->pdf)
                 <a href="{{url('media/' . $device->pdf->path)}}"
-                   target="_blank">{{ $device->pdf->name }}</a>
+                   target="_blank">{!! $device->pdf->name !!}</a>
             @endif
         </label>
     </div>
-    <x-form.input name="category_id" disabled value="{{$device->category->name}}"/>
-    <x-form.input name="order" disabled value="{{$device->order}}"/>
-    <x-form.textarea name="description" value="{{$device->description}}" disabled/>
+    <x-form.input name="category_id" disabled value="{!! $device->category->name !!}"/>
+    <x-form.input name="order" disabled value="{{ $device->order }}"/>
+    <x-form.textarea name="description" value="{!! $device->description !!}" disabled/>
     @auth
         <a class="btn btn-primary" href="/devices/{{$device->id}}/edit">Edit</a>
         <button type="button" class="btn btn-danger delete-device"
@@ -32,7 +32,7 @@
                             <img src="{{url('media/' . $photo->path)}}" width="100%">
                         </div>
                         <label class="form-label text-center">
-                            {{ $photo->name }}
+                            {!! $photo->name !!}
                         </label>
                     </div>
                 @endforeach

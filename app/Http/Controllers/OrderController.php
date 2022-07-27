@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Device;
+use Exception;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Session;
 
 class OrderController extends Controller
@@ -22,7 +22,7 @@ class OrderController extends Controller
         }
 
         $categories = Category::all();
-        $devices = Device::query()->orderBy('order')->filter(compact('currentCategory'))->get();
+        $devices = Device::orderBy('order')->filter(compact('currentCategory'))->get();
 
         return view('pages.devices.order.index', compact('devices', 'categories', 'currentCategory'));
     }
@@ -32,11 +32,25 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        foreach ($request->inDevices as $inDevice){
-            Device::query()->where('id', '=', $inDevice['id'])->update(['order' => $inDevice["order"]]);
-        }
+        try {
+            foreach ($request->inDevices as $inDevice) {
+                Device::query()->where('id', '=', $inDevice['id'])->update(['order' => $inDevice["order"]]);
+            }
 
-        Session::flash('success', 'The new device order has been saved!');
-        return ['success' => true];
+            Session::flash('success', 'The new device order has been saved!');
+            return ['success' => true];
+        } catch (Exception $e) {
+            $errorMsg = $e;
+        }
+        return ['success' => false, 'errorMsg' => $errorMsg];
+    }
+
+    /**
+     * @param Category $category
+     * @return mixed
+     */
+    public function show(Category $category)
+    {
+        return Device::orderBy('order')->where('category_id', $category->id)->get(['id', 'order']);
     }
 }

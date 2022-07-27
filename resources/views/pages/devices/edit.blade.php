@@ -1,7 +1,7 @@
 <x-layout>
     <h1>Device: {{$device->name}}</h1>
     <x-device.back-button :category="$device->category"/>
-    <form method="POST" action="/devices/{{$device->id}}" enctype="multipart/form-data" autocomplete="off">
+    <form method="POST" action="{{ route('devices.update', ['device' => $device->id] )}}" enctype="multipart/form-data" autocomplete="off">
         @method('PATCH')
         @csrf
         <x-form.input name="name" value="{{(old('name') ?: $device->name)}}" maxlength="30" required/>
@@ -11,7 +11,7 @@
                 <div id="pdfPathLabel" class="d-flex align-items-start">
                     <label class="form-control">
                         <a href="{{url('media/' . $device->pdf->path)}}"
-                           target="_blank">{{ $device->pdf->name }}</a>
+                           target="_blank">{!! $device->pdf->name !!}</a>
                     </label>
                     <button type="button" class="btn btn-danger ms-2 delete-pdf"
                             data-id="{{$device->pdf->id}}">
@@ -43,7 +43,7 @@
     </form>
     <hr/>
     <h1>Device photo's</h1>
-    <form class="d-flex flex-row justify-content-center mb-3" method="POST" action="{{url('media/' . $device->id)}}" enctype="multipart/form-data">
+    <form class="d-flex flex-row justify-content-center mb-3" method="POST" action="{{route('media.store', ['device' => $device->id])}}" enctype="multipart/form-data">
         @csrf
         <label class="form-label flex-shrink-0 mb-0 align-self-center" for="path">
             New photo:
