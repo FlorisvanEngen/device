@@ -19,8 +19,9 @@ class Device extends Model
      */
     public function scopeFilter($query, array $filters)
     {
-        $query->when($filters['currentCategory'] ?? false, fn($query, $category) => $query->whereHas('category', fn($query) => $query->where('id', $category->id))
-        );
+        $query->when($filters['currentCategory'] ?? false,
+            fn($query, $category) => $query->whereHas('category',
+                fn($query) => $query->where('id', $category->id)));
     }
 
     /**
