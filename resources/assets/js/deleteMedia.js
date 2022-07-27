@@ -1,19 +1,19 @@
 $(document).ready(function () {
-    $("button[type=button].delete-pdf").on("click", function () {
-        let id = $(this).attr("data-id");
-        let userId = $(this).attr("data-userid");
+    $("button[type=button].delete-file").on("click", function () {
+        let id = $(this).data("id");
 
         $.ajax({
-            url: _dir + '/devices/pdf/' + id.toString(),
-            data: {'edited_by_id': userId},
+            url: _dir + '/media/' + id,
             type: "DELETE",
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
             success: function (d) {
                 if (d.success === true) {
-                    $("#pdfPathLabel").remove();
-                    $("#pdf_path").removeClass("d-none");
+                    $("#photo" + id).remove();
+                } else {
+                    $("#jsErrorToast .toast-body").html(d.errorMsg);
+                    $("#jsErrorToast").toast("show");
                 }
             },
             error: function (e) {

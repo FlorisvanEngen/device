@@ -10,7 +10,7 @@ class Device extends Model
     use HasFactory;
 
     protected $guarded = [];
-    protected $with = ['category'];
+    protected $with = ['category', 'pdf'];
 
     /**
      * @param $query
@@ -34,9 +34,17 @@ class Device extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function photos()
+    public function media()
     {
-        return $this->hasMany(Photo::class);
+        return $this->hasMany(Media::class);
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function pdf()
+    {
+        return $this->belongsTo(Media::class, 'pdf_id');
     }
 
     /**

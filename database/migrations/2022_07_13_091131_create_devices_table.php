@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      *
@@ -21,8 +20,7 @@ return new class extends Migration
             $table->string('name', 30)->unique();
             $table->text('description');
             $table->bigInteger('order');
-            $table->string('pdf_name')->nullable();
-            $table->string('pdf_path')->nullable();
+            $table->bigInteger('pdf_id')->unsigned()->nullable();
             $table->timestamps();
         });
     }

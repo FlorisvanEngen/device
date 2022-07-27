@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\PDFController;
+use App\Http\Controllers\MediaController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PhotoController;
 use App\Http\Controllers\DeviceController;
@@ -20,28 +21,26 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [DeviceController::class, 'index'])->name('home');
+Route::get('devices/{device}', [DeviceController::class, 'show'])->whereNumber('device');
 
-Route::get('register', [RegisterController::class, 'create'])->middleware('guest');
-Route::post('register', [RegisterController::class, 'store'])->middleware('guest');
+Route::get('media/{filename}', [MediaController::class, 'show']);
 
-Route::get('login', [SessionsController::class, 'create'])->name('login')->middleware('guest');
-Route::post('sessions', [SessionsController::class, 'store'])->middleware('guest');
-Route::post('logout', [SessionsController::class, 'destroy'])->middleware('auth');
+Route::middleware(['guest'])->group(function () {
+    Route::get('register', [RegisterController::class, 'create']);
+    Route::post('register', [RegisterController::class, 'store']);
 
-Route::get('devices/order', [OrderController::class, 'index'])->middleware('auth');
-Route::post('devices/order', [OrderController::class, 'store'])->middleware('auth');
+    Route::get('login', [SessionsController::class, 'create'])->name('login');
+    Route::post('sessions', [SessionsController::class, 'store']);
+});
 
-Route::post('devices', [DeviceController::class, 'store'])->middleware('auth');
-Route::get('devices/create', [DeviceController::class, 'create'])->middleware('auth');
-Route::get('devices/{device}/edit', [DeviceController::class, 'edit'])->middleware('auth');
-Route::get('devices/{device}', [DeviceController::class, 'show']);
-Route::patch('devices/{device}', [DeviceController::class, 'update'])->middleware('auth');
-Route::delete('devices/{device}', [DeviceController::class, 'destroy'])->middleware('auth');
+Route::middleware(['auth'])->group(function () {
+    Route::post('logout', [SessionsController::class, 'destroy']);
 
-Route::delete('devices/pdf/{device}', [PDFController::class, 'destroy'])->middleware('auth');
+    Route::get('devices/order', [OrderController::class, 'index']);
+    Route::post('devices/order', [OrderController::class, 'store']);
 
-Route::post('devices/photo/{device}', [PhotoController::class, 'store'])->middleware('auth');
-Route::delete('devices/photo/{photo}', [PhotoController::class, 'destroy'])->middleware('auth');
+    Route::resource('devices', DeviceController::class)->except(['index', 'show']);
 
-Route::get('pdf/{filename}', [PDFController::class, 'show']);
-Route::get('img/{filename}', [PhotoController::class, 'show']);
+    Route::post('media/{device}', [MediaController::class, 'store']);
+    Route::delete('media/{media}', [MediaController::class, 'destroy']);
+});

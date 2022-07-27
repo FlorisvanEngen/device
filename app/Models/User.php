@@ -51,13 +51,19 @@ class User extends Authenticatable
         $this->attributes['password'] = bcrypt($password);
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function createdDevices()
     {
-        return $this->belongsToMany(Device::class, 'posts', 'created_by_id');
+        return $this->hasMany(Device::class, 'posts', 'created_by_id');
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function editedDevices()
     {
-        return $this->belongsToMany(Device::class, 'posts', 'edited_by_id');
+        return $this->hasMany(Device::class, 'posts', 'edited_by_id');
     }
 }
