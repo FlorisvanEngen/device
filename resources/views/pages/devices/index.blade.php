@@ -10,7 +10,7 @@
         @endforeach
     </ul>
     @guest
-        <x-device.logged-out-device-table :devices="$devices"/>
+        <x-device.logged-out-device-table :devices="$currentCategory->devices"/>
     @else
         <x-device.logged-in-device-table :devices="$devices" :currentCategory="$currentCategory"/>
     @endguest

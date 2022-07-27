@@ -6,6 +6,7 @@ use App\Models\Device;
 use App\Models\Media;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 
@@ -41,7 +42,8 @@ class MediaController extends Controller
             }
 
             return response()->file($path, $headers);
-        } catch (Exception) {
+        } catch (Exception $e) {
+            Log::error($e->getMessage());
             abort(500);
         }
     }
@@ -68,7 +70,7 @@ class MediaController extends Controller
 
             return redirect('/devices/' . $device->id . '/edit')->with('success', 'The photo has been added!');
         } catch (Exception $e) {
-//            Session::flash('error', $e->getMessage());
+            Log::error($e->getMessage());
             Session::flash('error', 'Something went wrong!');
         }
 
@@ -85,10 +87,11 @@ class MediaController extends Controller
         try {
             Storage::delete($media->type . '/' . $media->path);
             $media->delete();
-            Device::where('id', '=', $media->device_id)->update(['edited_by_id' => $request->user()->id]);
+            Device::find($media->device_id)->update(['edited_by_id' => $request->user()->id]);
 
             return ['success' => true];
         } catch (Exception $e) {
+            Log::error($e->getMessage());
             $errorMsg = $e->getMessage();
         }
         return ['success' => false, 'errorMsg' => $errorMsg];

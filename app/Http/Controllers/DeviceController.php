@@ -5,28 +5,26 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Device;
 use App\Models\Media;
-use Composer\Autoload\ClassLoader;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
-use function GuzzleHttp\Promise\all;
 
 class DeviceController extends Controller
 {
     /**
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public function index()
+    public function index(Request $request)
     {
-        $currentCategory = Category::firstWhere('id', request('category'));
+        $currentCategory = Category::find($request['category']);
 
         if (!isset($currentCategory)) {
-            $currentCategory = Category::query()->orderBy('id')->first();
+            $currentCategory = Category::with('devices')->first();
         }
 
-        $categories = Category::all();
-        $devices = Device::query()->orderBy('order')->filter(compact('currentCategory'))->paginate(20)->withQueryString();
+        $categories = Category::get();
+        $devices = $currentCategory->devices()->orderBy('order')->paginate(20)->withQueryString();
         return view('pages.devices.index', compact('devices', 'categories', 'currentCategory'));
     }
 
@@ -36,8 +34,8 @@ class DeviceController extends Controller
      */
     public function show(Device $device)
     {
-        $categories = Category::all();
-        $photos = Media::where('device_id', '=', $device->id)->where('type', '=', 'img')->get();
+        $categories = Category::get();
+        $photos = Media::where('device_id', $device->id)->where('type', 'img')->get();
 
         return view('pages.devices.show', compact('device', 'categories', 'photos'));
     }
@@ -47,15 +45,9 @@ class DeviceController extends Controller
      */
     public function create(Request $request)
     {
-        $currentCategory = Category::query()->firstWhere('id', '=', $request['category']);
-
-        $maxOrder = 0;
-        $categories = Category::all();
-        $lastDevice = Device::query()->where('category_id', '=', $request['category'])->orderByDesc('order')->first();
-
-        if (isset($lastDevice)) {
-            $maxOrder = $lastDevice->order + 1;
-        }
+        $categories = Category::get();
+        $currentCategory = Category::find($request['category']);
+        $maxOrder = Device::where('category_id', $request['category'])->max('order') + 1;
 
         return view('pages.devices.create', compact('maxOrder', 'categories', 'currentCategory'));
     }
@@ -66,9 +58,9 @@ class DeviceController extends Controller
     public function store(Request $request)
     {
         $file = null;
-        $attributes = $this->validateDevice();
+        $attributes = $this->validateDevice($request);
 
-        $attributes['created_by_id'] = request()->user()->id;
+        $attributes['created_by_id'] = $request->user()->id;
 
         if (isset($attributes['pdf'])) {
             $file = $request->file('pdf');
@@ -98,8 +90,8 @@ class DeviceController extends Controller
      */
     public function edit(Device $device)
     {
-        $categories = Category::all();
-        $photos = Media::where('device_id', '=', $device->id)->where('type', '=', 'img')->get();
+        $categories = Category::get();
+        $photos = Media::where('device_id', $device->id)->where('type', 'img')->get();
 
         return view('pages.devices.edit', compact('device', 'categories', 'photos'));
     }
@@ -110,7 +102,7 @@ class DeviceController extends Controller
      */
     public function update(Request $request, Device $device)
     {
-        $attributes = $this->validateDevice($device);
+        $attributes = $this->validateDevice($request, $device);
 
         $attributes['edited_by_id'] = $request->user()->id;
         $attributes['updated_at'] = time();
@@ -141,7 +133,7 @@ class DeviceController extends Controller
      */
     public function destroy(Device $device)
     {
-        $media = Media::query()->where('device_id', '=', $device->id)->get();
+        $media = Media::where('device_id', $device->id)->get();
 
         foreach ($media as $m) {
             Storage::delete($m->type . '/' . $m->path);
@@ -155,11 +147,11 @@ class DeviceController extends Controller
     /**
      * @return array
      */
-    protected function validateDevice(?Device $device = null)
+    protected function validateDevice(Request $request, ?Device $device = null)
     {
         $device ??= new Device();
 
-        return request()->validate([
+        return $request->validate([
             'name' => ['required', 'max:30', Rule::unique('devices', 'name')->ignore($device->id)],
             'pdf' => ['nullable', 'file'],
             'description' => ['required'],

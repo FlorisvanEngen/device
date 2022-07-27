@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Models\Device;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
 
 class OrderController extends Controller
@@ -13,18 +14,21 @@ class OrderController extends Controller
     /**
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public function index()
+    public function index(Request $request)
     {
-        $currentCategory = Category::firstWhere('id', request('category'));
+        try {
+            if (isset($request['category'])) {
+                $currentCategory = Category::with('devices')->find($request['category']);
+            } else {
+                $currentCategory = Category::with('devices')->first();
+            }
 
-        if (!isset($currentCategory)) {
-            $currentCategory = Category::query()->orderBy('id')->first();
+            $categories = Category::get();
+            return view('pages.devices.order.index', compact('categories', 'currentCategory'));
+        } catch (Exception $e) {
+            Log::error($e->getMessage());
+            abort(500);
         }
-
-        $categories = Category::all();
-        $devices = Device::orderBy('order')->filter(compact('currentCategory'))->get();
-
-        return view('pages.devices.order.index', compact('devices', 'categories', 'currentCategory'));
     }
 
     /**
@@ -34,15 +38,15 @@ class OrderController extends Controller
     {
         try {
             foreach ($request->inDevices as $inDevice) {
-                Device::query()->where('id', '=', $inDevice['id'])->update(['order' => $inDevice["order"]]);
+                Device::find($inDevice['id'])->update(['order' => $inDevice["order"]]);
             }
 
             Session::flash('success', 'The new device order has been saved!');
             return ['success' => true];
         } catch (Exception $e) {
-            $errorMsg = $e;
+            Log::error($e->getMessage());
+            return ['success' => false, 'errorMsg' => $e->getMessage()];
         }
-        return ['success' => false, 'errorMsg' => $errorMsg];
     }
 
     /**
@@ -51,6 +55,14 @@ class OrderController extends Controller
      */
     public function show(Category $category)
     {
-        return Device::orderBy('order')->where('category_id', $category->id)->get(['id', 'order']);
+        try {
+            return [
+                'success' => true,
+                'device' => Device::without('category')->orderBy('order')->where('category_id', $category->id)->get(['id', 'order'])
+            ];
+        } catch (Exception $e) {
+            Log::error($e->getMessage());
+            return ['success' => false, 'errorMsg' => $e->getMessage()];
+        }
     }
 }

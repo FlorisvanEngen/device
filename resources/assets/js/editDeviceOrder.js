@@ -10,7 +10,12 @@ $(document).ready(function () {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
         success: function (d) {
-            devices = d;
+            if (d.success === true) {
+                devices = d.device;
+            } else {
+                $("#jsErrorToast .toast-body").html(d.errorMsg);
+                $("#jsErrorToast").toast("show");
+            }
         },
         error: function (e) {
             console.error(e);

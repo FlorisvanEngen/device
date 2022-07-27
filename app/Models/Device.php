@@ -10,7 +10,7 @@ class Device extends Model
     use HasFactory;
 
     protected $guarded = [];
-    protected $with = ['category', 'pdf'];
+    protected $with = ['category'];
 
     /**
      * @param $query

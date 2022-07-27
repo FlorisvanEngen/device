@@ -33,7 +33,7 @@
             <th>Order</th>
             <th>Created at</th>
         </tr>
-        @foreach($devices as $device)
+        @foreach($currentCategory->devices as $device)
             <tr id="device_{{$device->id}}" draggable="true">
                 <td>{{$device->id}}</td>
                 <td>{{$device->name}}</td>
