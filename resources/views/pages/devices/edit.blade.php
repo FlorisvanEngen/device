@@ -1,7 +1,8 @@
 <x-layout>
     <h1>Device: {{$device->name}}</h1>
     <x-device.back-button :category="$device->category"/>
-    <form method="POST" action="{{ route('devices.update', ['device' => $device->id] )}}" enctype="multipart/form-data" autocomplete="off">
+    <form method="POST" action="{{ route('devices.update', ['device' => $device->id] )}}" enctype="multipart/form-data"
+          autocomplete="off">
         @method('PATCH')
         @csrf
         <x-form.input name="name" value="{{(old('name') ?: $device->name)}}" maxlength="30" required/>
@@ -35,7 +36,7 @@
             </select>
             <x-form.error name="category_id"/>
         </div>
-        <x-form.input name="order" value="{{(old('order') ?: $device->order)}}" type="number" required/>
+        <x-form.input name="order" value="{{(old('order') ?: $device->order)}}" type="number" pattern="\d" required/>
         <x-form.textarea name="description" value="{{(old('description') ?: $device->description)}}" required/>
         <x-form.button>
             Update device
@@ -43,7 +44,8 @@
     </form>
     <hr/>
     <h1>Device photo's</h1>
-    <form class="d-flex flex-row justify-content-center mb-3" method="POST" action="{{route('media.store', ['device' => $device->id])}}" enctype="multipart/form-data">
+    <form class="d-flex flex-row justify-content-center mb-3" method="POST"
+          action="{{route('media.store', ['device' => $device->id])}}" enctype="multipart/form-data">
         @csrf
         <label class="form-label flex-shrink-0 mb-0 align-self-center" for="path">
             New photo:

@@ -18,9 +18,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [DeviceController::class, 'index'])->name('home');
-Route::get('devices/{device}', [DeviceController::class, 'show'])->whereNumber('devices');
 
+Route::get('/', [DeviceController::class, 'index'])->name('home');
+Route::get('devices/{device}', [DeviceController::class, 'show'])->whereNumber('device');
 Route::get('media/{filename}', [MediaController::class, 'show']);
 
 Route::middleware(['guest'])->group(function () {

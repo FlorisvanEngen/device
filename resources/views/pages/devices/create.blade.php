@@ -18,7 +18,8 @@
             <x-form.error name="category_id"/>
         </div>
         <x-form.input name="order" type="number"
-                      value="{{($maxOrder ?? old('order'))}}" required/>
+                      value="{{($maxOrder ?? old('order'))}}"
+                      pattern="\d" required/>
         <x-form.textarea name="description" required/>
         <x-form.button>
             Add device
