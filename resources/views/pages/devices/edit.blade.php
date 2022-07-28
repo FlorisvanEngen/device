@@ -56,7 +56,7 @@
             Add photo
         </button>
     </form>
-    @if(count($device->photos))
+    @if($device->photos->isNotEmpty())
         <div class="container">
             <div class="row">
                 @foreach($device->photos as $photo)

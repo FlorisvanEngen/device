@@ -15,7 +15,7 @@
         <th>Order</th>
         <th>Created at</th>
     </tr>
-    @if(count($devices))
+    @if($devices->isNotEmpty())
         @foreach($devices as $device)
             <tr data-deviceid="{{ $device->id }}">
                 <td>{{ $device->id }}</td>

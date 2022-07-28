@@ -7,7 +7,9 @@
     </x-slot>
     <h1>Change the order for the devices</h1>
     <div class="mb-3">
-        <button type="button" class="btn btn-primary save-order">Save</button>
+        <button type="button"
+                class="btn btn-primary save-order" {{($currentCategory->devices->isNotEmpty() ?: 'disabled')}}>Save
+        </button>
         <a class="btn btn-secondary" href="{{url('/')}}">Cancel</a>
     </div>
     <ul class="nav nav-tabs">
@@ -33,16 +35,22 @@
             <th>Order</th>
             <th>Created at</th>
         </tr>
-        @foreach($currentCategory->devices as $device)
-            <tr id="device_{{$device->id}}" draggable="true">
-                <td>{{$device->id}}</td>
-                <td>{{$device->name}}</td>
-                <td>{{$device->category->name}}</td>
-                <td id="order_{{$device->id}}">{{$device->order}}</td>
-                <td>{{$device->created_at}}</td>
-            </tr>
-        @endforeach
+        @if ($currentCategory->devices->isNotEmpty())
+            @foreach($currentCategory->devices as $device)
+                <tr id="device_{{$device->id}}" draggable="true">
+                    <td>{{$device->id}}</td>
+                    <td>{{$device->name}}</td>
+                    <td>{{$device->category->name}}</td>
+                    <td id="order_{{$device->id}}">{{$device->order}}</td>
+                    <td>{{$device->created_at}}</td>
+                </tr>
+            @endforeach
+        @else
+            <x-device.no-device-found/>
+        @endif
     </table>
-    <button type="button" class="btn btn-primary save-order">Save</button>
+    <button type="button"
+            class="btn btn-primary save-order" {{($currentCategory->devices->isNotEmpty() ?: 'disabled')}}>Save
+    </button>
     <a class="btn btn-secondary" href="{{url('/?category=' . $currentCategory->id)}}">Cancel</a>
 </x-layout>

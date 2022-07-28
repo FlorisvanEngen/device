@@ -56,8 +56,8 @@ $(document).ready(function () {
                 devices.splice(draggedOverIndex + 1, 0, device);
 
                 devices.forEach(function (device, index) {
-                    device.order = index;
-                    $("#order_" + device.id).html(index);
+                    device.order = index + 1;
+                    $("#order_" + device.id).html(index + 1);
                 });
 
                 $("#" + dragging).on("dragstart", function (event) {

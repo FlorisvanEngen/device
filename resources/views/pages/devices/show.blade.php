@@ -21,7 +21,7 @@
             Delete
         </button>
     @endauth
-    @if(count($device->photos))
+    @if($device->photos->isNotEmpty())
         <hr/>
         <h1>Device photo's</h1>
         <div class="container">

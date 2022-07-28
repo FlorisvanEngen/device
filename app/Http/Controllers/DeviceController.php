@@ -22,7 +22,7 @@ class DeviceController extends Controller
         try {
             $currentCategory = Category::with('devices')->find($request['category']);
 
-            if (!isset($currentCategory)) {
+            if ($currentCategory) {
                 $currentCategory = Category::with('devices')->first();
             }
 
@@ -59,8 +59,8 @@ class DeviceController extends Controller
     {
         try {
             $categories = Category::get();
-            $currentCategory = Category::find($request['category']);
-            $maxOrder = Device::where('category_id', $request['category'])->max('order') + 1;
+            $currentCategory = $categories->find($request->category);
+            $maxOrder = Device::where('category_id', $request->category)->max('order') + 1;
 
             return view('pages.devices.create', compact('maxOrder', 'categories', 'currentCategory'));
         } catch (Exception $e) {
@@ -166,7 +166,7 @@ class DeviceController extends Controller
     public function destroy($device)
     {
         try {
-            $device = Device::with('media')->first($device);
+            $device = Device::with('media')->find($device);
 
             foreach ($device->media as $m) {
                 Storage::delete($m->type . '/' . $m->path);

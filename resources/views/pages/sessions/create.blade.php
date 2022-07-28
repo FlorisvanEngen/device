@@ -1,6 +1,6 @@
 <x-layout>
     <h1>Login</h1>
-    <form method="POST" action="{{route('login.store')}}">
+    <form method="POST" action="{{route('login.store')}}" autocomplete="off">
         @csrf
         <x-form.input name="email" type="email" required/>
         <x-form.input name="password" type="password" required/>

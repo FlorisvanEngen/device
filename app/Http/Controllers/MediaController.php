@@ -75,17 +75,23 @@ class MediaController extends Controller
 
     /**
      * @param Request $request
-     * @param Media $media
+     * @param $media
      * @return array|bool[]
      */
-    public function destroy(Request $request, Media $media)
+    public function destroy(Request $request, $media)
     {
         try {
-            Storage::delete($media->type . '/' . $media->path);
-            $media->delete();
-            Device::find($media->device_id)->update(['edited_by_id' => $request->user()->id]);
+            $media = Media::find($media);
 
-            return ['success' => true, 'type' => $media->type];
+            if ($media) {
+                Storage::delete($media->type . '/' . $media->path);
+                $media->delete();
+                Device::find($media->device_id)->update(['edited_by_id' => $request->user()->id]);
+
+                return ['success' => true, 'type' => $media->type];
+            }
+
+            return ['success' => true];
         } catch (Exception $e) {
             Log::error($e->getMessage());
             return ['success' => false, 'errorMsg' => $e->getMessage()];
