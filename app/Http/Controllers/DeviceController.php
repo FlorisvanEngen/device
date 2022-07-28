@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\DeviceRequest;
 use App\Models\Category;
 use App\Models\Device;
 use App\Models\Media;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Validation\Rule;
-use Illuminate\Validation\ValidationException;
 
 class DeviceController extends Controller
 {
@@ -55,26 +54,23 @@ class DeviceController extends Controller
     /**
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function store(Request $request)
+    public function store(DeviceRequest $request)
     {
-        $file = null;
-        $attributes = $this->validateDevice($request);
+        $device = Device::create([
+            'name' => $request->name,
+            'category_id' => $request->category_id,
+            'order' => $request->order,
+            'description' => $request->description,
+            'created_by_id' => $request->user()->id
+        ]);
 
-        $attributes['created_by_id'] = $request->user()->id;
-
-        if (isset($attributes['pdf'])) {
+        if ($request->pdf) {
             $file = $request->file('pdf');
-            unset($attributes['pdf']);
-        }
-
-        $device = Device::create($attributes);
-
-        if ($file) {
             $pdf = Media::create([
                 'device_id' => $device->id,
                 'name' => $file->getClientOriginalName(),
                 'type' => 'pdf',
-                'path' => $this->uploadFile($file)
+                'path' => str_replace('pdf/', '', $file->store('pdf'))
             ]);
 
             $device->pdf()->associate($pdf);
@@ -88,41 +84,41 @@ class DeviceController extends Controller
      * @param Device $device
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public function edit(Device $device)
+    public function edit($device)
     {
+        $device = Device::with('media')->find($device);
         $categories = Category::get();
-        $photos = Media::where('device_id', $device->id)->where('type', 'img')->get();
 
-        return view('pages.devices.edit', compact('device', 'categories', 'photos'));
+        return view('pages.devices.edit', compact('device', 'categories'));
     }
 
     /**
      * @param Device $device
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function update(Request $request, Device $device)
+    public function update(DeviceRequest $request, Device $device)
     {
-        $attributes = $this->validateDevice($request, $device);
+        $device->update([
+            'name' => $request->name,
+            'category_id' => $request->category_id,
+            'order' => $request->order,
+            'description' => $request->description,
+            'edited_by_id' => $request->user()->id
+        ]);
 
-        $attributes['edited_by_id'] = $request->user()->id;
-        $attributes['updated_at'] = time();
-
-        if (isset($attributes['pdf'])) {
+        if ($request->pdf) {
             $file = $request->file('pdf');
 
             $pdf = Media::create([
                 'device_id' => $device->id,
                 'name' => $file->getClientOriginalName(),
                 'type' => 'pdf',
-                'path' => $this->uploadFile($file)
+                'path' => str_replace('pdf/', '', $file->store('pdf'))
             ]);
 
             $device->pdf()->associate($pdf);
             $device->save();
-            unset($attributes['pdf']);
         }
-
-        $device->update($attributes);
 
         return redirect('/devices/' . $device->id . '/edit')->with('success', 'The device \'' . $device->name . '\' has been updated!');
     }
@@ -142,35 +138,5 @@ class DeviceController extends Controller
         $device->delete();
 
         return redirect('/?category=' . $device->category_id)->with('success', 'The device \'' . $device->name . '\' has been deleted!');
-    }
-
-    /**
-     * @return array
-     */
-    protected function validateDevice(Request $request, ?Device $device = null)
-    {
-        $device ??= new Device();
-
-        return $request->validate([
-            'name' => ['required', 'max:30', Rule::unique('devices', 'name')->ignore($device->id)],
-            'pdf' => ['nullable', 'file'],
-            'description' => ['required'],
-            'order' => ['required', 'numeric'],
-            'category_id' => ['required', Rule::exists('categories', 'id')]
-        ]);
-    }
-
-    /**
-     * @param $file
-     * @return mixed
-     * @throws ValidationException
-     */
-    protected function uploadFile($file)
-    {
-        if ($file->getClientMimeType() == 'application/pdf') {
-            return str_replace('pdf/', '', $file->store('pdf'));
-        } else {
-            throw ValidationException::withMessages(['pdf' => 'The file must ba a PDF.']);
-        }
     }
 }

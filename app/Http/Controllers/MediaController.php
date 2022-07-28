@@ -89,7 +89,7 @@ class MediaController extends Controller
             $media->delete();
             Device::find($media->device_id)->update(['edited_by_id' => $request->user()->id]);
 
-            return ['success' => true];
+            return ['success' => true, 'type' => $media->type];
         } catch (Exception $e) {
             Log::error($e->getMessage());
             $errorMsg = $e->getMessage();

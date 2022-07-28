@@ -5,6 +5,7 @@
           autocomplete="off">
         @method('PATCH')
         @csrf
+        <input id="id" name="id" type="hidden" value="{{$device->id}}"/>
         <x-form.input name="name" value="{{(old('name') ?: $device->name)}}" maxlength="30" required/>
         @if($device->pdf)
             <div class="mb-3">
@@ -14,7 +15,7 @@
                         <a href="{{url('media/' . $device->pdf->path)}}"
                            target="_blank">{!! $device->pdf->name !!}</a>
                     </label>
-                    <button type="button" class="btn btn-danger ms-2 delete-pdf"
+                    <button type="button" class="btn btn-danger ms-2 delete-file"
                             data-id="{{$device->pdf->id}}">
                         Delete
                     </button>
@@ -55,10 +56,10 @@
             Add photo
         </button>
     </form>
-    @if(count($photos))
+    @if(count($device->media))
         <div class="container">
             <div class="row">
-                @foreach($photos as $photo)
+                @foreach($device->media as $photo)
                     <div id="photo{{$photo->id}}" class="col-md-3 d-flex flex-column mb-3">
                         <div class="p-2">
                             <img src="{{url('media/' . $photo->path)}}" width="100%">

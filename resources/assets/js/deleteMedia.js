@@ -10,7 +10,12 @@ $(document).ready(function () {
             },
             success: function (d) {
                 if (d.success === true) {
-                    $("#photo" + id).remove();
+                    if (d.type === "pdf") {
+                        $("#pdfPathLabel").remove();
+                        $("#pdf").removeClass("d-none");
+                    } else {
+                        $("#photo" + id).remove();
+                    }
                 } else {
                     $("#jsErrorToast .toast-body").html(d.errorMsg);
                     $("#jsErrorToast").toast("show");
