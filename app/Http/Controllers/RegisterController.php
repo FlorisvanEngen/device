@@ -2,32 +2,46 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\RegisterRequest;
 use App\Models\User;
-use Illuminate\Validation\Rule;
+use Exception;
+use Illuminate\Support\Facades\Log;
 
 class RegisterController extends Controller
 {
     /**
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public function create(){
-        return view('pages.register.create');
+    public function create()
+    {
+        try {
+            return view('pages.register.create');
+        } catch (Exception $e) {
+            Log::error($e->getMessage());
+            abort(500);
+        }
     }
 
     /**
+     * @param RegisterRequest $request
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function store(){
-        $attributes = request()->validate([
-            'name'=> ['required', 'max:255'],
-            'email' => ['required', 'email', 'max:255', Rule::unique('users', 'email')],
-            'password' => ['required', 'min:7']
-        ]);
+    public function store(RegisterRequest $request)
+    {
+        try {
+            $user = User::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => $request->password
+            ]);
 
-        $user = User::create($attributes);
+            auth()->login($user);
 
-        auth()->login($user);
+            return redirect('/')->with('success', 'Your account has been created.');
+        } catch (Exception $e) {
+            Log::error($e->getMessage());
+        }
 
-        return redirect('/')->with('success', 'Your account has been created.');
+        return back()->with('error', 'Something went wrong!');
     }
 }

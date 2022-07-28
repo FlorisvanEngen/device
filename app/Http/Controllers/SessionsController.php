@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\SessionRequest;
+use Exception;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
 
@@ -12,27 +15,34 @@ class SessionsController extends Controller
      */
     public function create()
     {
-        return view('pages.sessions.create');
+        try {
+            return view('pages.sessions.create');
+        } catch (Exception $e) {
+            Log::error($e->getMessage());
+            abort(500);
+        }
     }
 
     /**
+     * @param SessionRequest $request
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function store()
+    public function store(SessionRequest $request)
     {
-        $attributes = request()->validate([
-            'email' => ['required', 'email', Rule::exists('users', 'email')],
-            'password' => ['required']
-        ]);
+        try {
+            if (!auth()->attempt($request->except('_token', '_method'))) {
+                throw ValidationException::WithMessages([
+                    'email' => 'Your provided credentials could not be verified.'
+                ]);
+            }
 
-        if (!auth()->attempt($attributes)) {
-            throw ValidationException::WithMessages([
-                'email' => 'Your provided credentials could not be verified.'
-            ]);
+            session()->regenerate();
+            return redirect('/')->with('success', 'Login successful!');
+        } catch (Exception $e) {
+            Log::error($e->getMessage());
         }
 
-        session()->regenerate();
-        return redirect('/')->with('success', 'Login successful!');
+        return back()->with('error', 'Something went wrong!');
     }
 
     /**
@@ -40,7 +50,13 @@ class SessionsController extends Controller
      */
     public function destroy()
     {
-        auth()->logout();
-        return redirect('/')->with('success', 'Goodbye!');
+        try {
+            auth()->logout();
+            return redirect('/')->with('success', 'Goodbye!');
+        } catch (Exception $e) {
+            Log::error($e->getMessage());
+        }
+
+        return back()->with('error', 'Something went wrong!');
     }
 }

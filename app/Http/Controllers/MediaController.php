@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\MediaRequest;
 use App\Models\Device;
 use App\Models\Media;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 
 class MediaController extends Controller
@@ -49,32 +49,28 @@ class MediaController extends Controller
     }
 
     /**
-     * @param Request $request
-     * @param Device $device
+     * @param MediaRequest $request
+     * @param $device
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function store(Request $request, Device $device)
+    public function store(MediaRequest $request, $device)
     {
         try {
-            $attributes = $request->validate([
-                'path' => ['image']
+            $file = $request->file('path');
+
+            Media::create([
+                'name' => $file->getClientOriginalName(),
+                'type' => 'img',
+                'path' => str_replace('img/', '', $file->store('img')),
+                'device_id' => $device
             ]);
 
-            $file = $request->file('path');
-            $attributes['device_id'] = $device->id;
-            $attributes['name'] = $file->getClientOriginalName();
-            $attributes['type'] = 'img';
-            $attributes['path'] = str_replace('img/', '', $file->store('img'));
-
-            Media::create($attributes);
-
-            return redirect('/devices/' . $device->id . '/edit')->with('success', 'The photo has been added!');
+            return redirect('/devices/' . $device . '/edit')->with('success', 'The photo has been added!');
         } catch (Exception $e) {
             Log::error($e->getMessage());
-            Session::flash('error', 'Something went wrong!');
         }
 
-        return back();
+        return back()->with('error', 'Something went wrong!');
     }
 
     /**
@@ -92,8 +88,7 @@ class MediaController extends Controller
             return ['success' => true, 'type' => $media->type];
         } catch (Exception $e) {
             Log::error($e->getMessage());
-            $errorMsg = $e->getMessage();
+            return ['success' => false, 'errorMsg' => $e->getMessage()];
         }
-        return ['success' => false, 'errorMsg' => $errorMsg];
     }
 }

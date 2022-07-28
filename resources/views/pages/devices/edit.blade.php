@@ -56,10 +56,10 @@
             Add photo
         </button>
     </form>
-    @if(count($device->media))
+    @if(count($device->photos))
         <div class="container">
             <div class="row">
-                @foreach($device->media as $photo)
+                @foreach($device->photos as $photo)
                     <div id="photo{{$photo->id}}" class="col-md-3 d-flex flex-column mb-3">
                         <div class="p-2">
                             <img src="{{url('media/' . $photo->path)}}" width="100%">

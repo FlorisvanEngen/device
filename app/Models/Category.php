@@ -16,6 +16,6 @@ class Category extends Model
      */
     public function devices()
     {
-        return $this->hasMany(Device::class);
+        return $this->hasMany(Device::class)->orderBy('order');
     }
 }

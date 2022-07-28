@@ -12,13 +12,14 @@ use Illuminate\Support\Facades\Session;
 class OrderController extends Controller
 {
     /**
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     * @param Request $request
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|void
      */
     public function index(Request $request)
     {
         try {
-            if (isset($request['category'])) {
-                $currentCategory = Category::with('devices')->find($request['category']);
+            if ($request->category) {
+                $currentCategory = Category::with('devices')->find($request->category);
             } else {
                 $currentCategory = Category::with('devices')->first();
             }
@@ -32,7 +33,25 @@ class OrderController extends Controller
     }
 
     /**
-     * @return bool[]
+     * @param $category
+     * @return mixed
+     */
+    public function show($category)
+    {
+        try {
+            return [
+                'success' => true,
+                'device' => Device::without('category')->where('category_id', $category)->orderBy('order')->get(['id', 'order'])
+            ];
+        } catch (Exception $e) {
+            Log::error($e->getMessage());
+            return ['success' => false, 'errorMsg' => $e->getMessage()];
+        }
+    }
+
+    /**
+     * @param Request $request
+     * @return array|bool[]
      */
     public function store(Request $request)
     {
@@ -43,23 +62,6 @@ class OrderController extends Controller
 
             Session::flash('success', 'The new device order has been saved!');
             return ['success' => true];
-        } catch (Exception $e) {
-            Log::error($e->getMessage());
-            return ['success' => false, 'errorMsg' => $e->getMessage()];
-        }
-    }
-
-    /**
-     * @param Category $category
-     * @return mixed
-     */
-    public function show(Category $category)
-    {
-        try {
-            return [
-                'success' => true,
-                'device' => Device::without('category')->orderBy('order')->where('category_id', $category->id)->get(['id', 'order'])
-            ];
         } catch (Exception $e) {
             Log::error($e->getMessage());
             return ['success' => false, 'errorMsg' => $e->getMessage()];

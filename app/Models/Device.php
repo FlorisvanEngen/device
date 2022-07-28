@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -11,6 +13,16 @@ class Device extends Model
 
     protected $guarded = [];
     protected $with = ['category'];
+
+    /**
+     * @return Attribute
+     */
+    protected function createdAt(): Attribute
+    {
+        return Attribute::make(
+            get: fn($value) => Carbon::parse($value)->setTimezone('Europe/Amsterdam')->format('H:i:s d-m-Y')
+        );
+    }
 
     /**
      * @param $query
@@ -36,6 +48,14 @@ class Device extends Model
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function media()
+    {
+        return $this->hasMany(Media::class);
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function photos()
     {
         return $this->hasMany(Media::class)->whereType('img');
     }

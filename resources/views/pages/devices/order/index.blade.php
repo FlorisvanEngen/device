@@ -39,7 +39,7 @@
                 <td>{{$device->name}}</td>
                 <td>{{$device->category->name}}</td>
                 <td id="order_{{$device->id}}">{{$device->order}}</td>
-                <td>{{$device->created_at->format('H:i:s d-m-Y')}}</td>
+                <td>{{$device->created_at}}</td>
             </tr>
         @endforeach
     </table>

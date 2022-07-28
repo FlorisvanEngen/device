@@ -21,12 +21,12 @@
             Delete
         </button>
     @endauth
-    @if(count($photos))
+    @if(count($device->photos))
         <hr/>
         <h1>Device photo's</h1>
         <div class="container">
             <div class="row">
-                @foreach($photos as $photo)
+                @foreach($device->photos as $photo)
                     <div class="col-md-3 d-flex flex-column mb-3">
                         <div class="p-2">
                             <img src="{{url('media/' . $photo->path)}}" width="100%">
