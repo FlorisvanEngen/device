@@ -22,7 +22,7 @@ class DeviceController extends Controller
         try {
             $currentCategory = Category::with('devices')->find($request['category']);
 
-            if ($currentCategory) {
+            if (!isset($currentCategory)) {
                 $currentCategory = Category::with('devices')->first();
             }
 

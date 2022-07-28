@@ -35,18 +35,18 @@ class DatabaseSeeder extends Seeder
             'password' => 'password123'
         ]);
 
-//        Device::factory(33)->create([
-//            'category_id' => 1
-//        ]);
-//
-//        Device::factory(33)->create([
-//            'category_id' => 2
-//        ]);
-//
-//        Device::factory(34)->create([
-//            'category_id' => 3
-//        ]);
-//
+        Device::factory(33)->create([
+            'category_id' => 1
+        ]);
+
+        Device::factory(33)->create([
+            'category_id' => 2
+        ]);
+
+        Device::factory(34)->create([
+            'category_id' => 3
+        ]);
+
 //        Media::factory(1)->create([
 //            'device_id' => 1,
 //            'name' => 'illustration-1.png',
