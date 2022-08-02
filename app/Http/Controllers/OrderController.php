@@ -18,13 +18,13 @@ class OrderController extends Controller
     public function index(Request $request)
     {
         try {
-            if ($request->category) {
-                $currentCategory = Category::with('devices')->find($request->category);
+            $categories = Category::with('devices')->get();
+            if (isset($request->category)) {
+                $currentCategory = $categories->where('id', $request->category)->first();
             } else {
-                $currentCategory = Category::with('devices')->first();
+                $currentCategory = $categories->first();
             }
 
-            $categories = Category::get();
             return view('pages.devices.order.index', compact('categories', 'currentCategory'));
         } catch (Exception $e) {
             Log::error($e->getMessage());

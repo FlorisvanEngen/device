@@ -20,14 +20,15 @@ class DeviceController extends Controller
     public function index(Request $request)
     {
         try {
-            if (isset($request['category'])) {
-                $currentCategory = Category::find($request['category']);
+            $categories = Category::get();
+
+            if (isset($request->category)) {
+                $currentCategory = $categories->where('id', $request->category)->first();
             } else {
-                $currentCategory = Category::first();
+                $currentCategory = $categories->first();
             }
 
-            $categories = Category::get();
-            $devices = $currentCategory->devices()->paginate(20)->withQueryString();
+            $devices = $currentCategory->currentDevices()->paginate(20)->withQueryString();
             return view('pages.devices.index', compact('devices', 'categories', 'currentCategory'));
         } catch (Exception $e) {
             Log::error($e->getMessage());
@@ -58,9 +59,9 @@ class DeviceController extends Controller
     public function create(Request $request)
     {
         try {
-            $categories = Category::get();
-            $currentCategory = $categories->find($request->category);
-            $maxOrder = Device::where('category_id', $request->category)->max('order') + 1;
+            $categories = Category::with('devices')->get();
+            $currentCategory = $categories->where('id', $request->category)->first();
+            $maxOrder = $currentCategory->devices->max('order') + 1;
 
             return view('pages.devices.create', compact('maxOrder', 'categories', 'currentCategory'));
         } catch (Exception $e) {

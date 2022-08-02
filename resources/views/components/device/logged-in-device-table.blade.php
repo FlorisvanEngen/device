@@ -15,6 +15,7 @@
         <th>Category</th>
         <th>Order</th>
         <th>Created at</th>
+        <th>Photos</th>
         <th></th>
     </tr>
     @if($devices->isNotEmpty())
@@ -25,6 +26,7 @@
                 <td>{!! $device->category->name !!}</td>
                 <td>{{ $device->order }}</td>
                 <td>{{ $device->created_at }}</td>
+                <td>{{ $device->photos->count() }}</td>
                 <td>
                     <a class="btn btn-link btn-sm" href="/devices/{{ $device->id }}/edit">Edit</a>
                     <button type="button" class="btn btn-link link-danger btn-sm delete-device"
