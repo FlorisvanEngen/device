@@ -20,10 +20,10 @@ class DeviceController extends Controller
     public function index(Request $request)
     {
         try {
-            $currentCategory = Category::with('devices')->find($request['category']);
-
-            if (!isset($currentCategory)) {
-                $currentCategory = Category::with('devices')->first();
+            if (isset($request['category'])) {
+                $currentCategory = Category::find($request['category']);
+            } else {
+                $currentCategory = Category::first();
             }
 
             $categories = Category::get();
