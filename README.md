@@ -47,11 +47,31 @@ npm install
 cp .env.example .env
 ```
 
-6. Configureer de db instellingen en de App_key. Dit kan via de volgende commando. (Als er geen bestaande App_key
-   beschikbaar is kan deze worden aangemaakt in stap 9)
+6. Configureer de db instellingen, mail instellingen en de App_key. Dit kan via de volgende commando.
+   (Als er geen bestaande App_key beschikbaar is kan deze worden aangemaakt in stap 9)
 
 ```text
 nano .env
+```
+
+```text
+APP_KEY=
+
+DB_CONNECTION=
+DB_HOST=
+DB_PORT=
+DB_DATABASE=
+DB_USERNAME=
+DB_PASSWORD=
+
+MAIL_MAILER=
+MAIL_HOST=
+MAIL_PORT=
+MAIL_USERNAME=
+MAIL_PASSWORD=
+MAIL_ENCRYPTION=
+MAIL_FROM_ADDRESS=
+MAIL_FROM_NAME=
 ```
 
 7. Open XAMPP en start de module's apache en mysql.
