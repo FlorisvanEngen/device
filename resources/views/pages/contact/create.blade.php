@@ -39,7 +39,7 @@
         </div>
         <x-form.textarea name="text" required/>
         <x-form.button>
-            Add device
+            Submit
         </x-form.button>
     </form>
 </x-layout>
