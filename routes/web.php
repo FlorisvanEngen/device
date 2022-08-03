@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\MediaController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DeviceController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SessionsController;
@@ -22,6 +23,10 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [DeviceController::class, 'index'])->name('home');
 Route::get('devices/{device}', [DeviceController::class, 'show'])->whereNumber('device');
 Route::get('media/{filename}', [MediaController::class, 'show']);
+
+Route::get('contact', [ContactController::class, 'create']);
+Route::post('contact', [ContactController::class, 'store'])->name('contact.store');
+Route::get('contact/{category}', [ContactController::class, 'show']);
 
 Route::middleware(['guest'])->group(function () {
     Route::get('register', [RegisterController::class, 'create']);

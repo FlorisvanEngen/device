@@ -63,6 +63,5 @@ class DeviceRequest extends FormRequest
             ],
             default => []
         };
-
     }
 }

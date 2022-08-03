@@ -54,6 +54,9 @@
                         <a class="nav-link{{(Request::url() == url('/register') ? ' active' : '')}}" aria-current="page" href="{{url('/register')}}">Register</a>
                     </li>
                 @endauth
+                <li class="nav-item">
+                    <a class="nav-link{{(Request::url() == url('/contact') ? ' active' : '')}}" aria-current="page" href="{{url('/contact')}}">Contact</a>
+                </li>
             </ul>
         </div>
     </div>
@@ -77,6 +80,7 @@
                     <li class="nav-item"><a href="{{url('/login')}}" class="nav-link px-2 text-muted">Login</a></li>
                     <li class="nav-item"><a href="{{url('/register')}}" class="nav-link px-2 text-muted">Register</a></li>
                 @endauth
+                <li class="nav-item"><a href="{{url('/contact')}}" class="nav-link px-2 text-muted">Contact</a></li>
             </ul>
             <p class="text-center text-muted">© {{date('Y')}} Company, Inc</p>
         </div>
