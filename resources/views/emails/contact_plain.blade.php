@@ -1,6 +1,6 @@
 Hi Admin,
 
-Somebody has filled in the contact page with the current info.
+{{$mailData['Name']}} has filled in the contact page with the current info.
 
 Details:
 ____________
@@ -13,4 +13,4 @@ Text:                   {{$mailData['text']}}
 ____________
 
 Kind regards,
-The system (C) {{ date('Y') }}
+Company (C) {{ date('Y') }}

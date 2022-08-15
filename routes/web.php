@@ -24,9 +24,9 @@ Route::get('/', [DeviceController::class, 'index'])->name('home');
 Route::get('devices/{device}', [DeviceController::class, 'show'])->whereNumber('device');
 Route::get('media/{filename}', [MediaController::class, 'show']);
 
-Route::get('contact', [ContactController::class, 'create']);
-Route::post('contact', [ContactController::class, 'store'])->name('contact.store');
-Route::get('contact/{category}', [ContactController::class, 'show']);
+Route::get('contact', [ContactController::class, 'index']);
+Route::post('contact', [ContactController::class, 'sendMail'])->name('contact.store');
+Route::get('contact/{category}', [ContactController::class, 'getDevices']);
 
 Route::middleware(['guest'])->group(function () {
     Route::get('register', [RegisterController::class, 'create']);

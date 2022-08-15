@@ -30,7 +30,8 @@ class ContactMail extends Mailable
      */
     public function build()
     {
-        return $this->subject('Test e-mailbericht')
+        return $this->from('floris.van.engen@connectionsystems.nl','Test sender')
+            ->subject('Test e-mailbericht')
             ->markdown('emails.contact')
             ->text('emails.contact_plain')
             ->with([

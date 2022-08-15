@@ -86,7 +86,7 @@
                 Hi Admin,
             </p>
             <p>
-                Somebody has filled in the contact page with the current info.
+                {{$mailData['Name']}} has filled in the contact page with the current info.
             </p>
 
             <fieldset align="left">
@@ -125,7 +125,7 @@
             <br/>
             <p>
                 Kind regards,<br>
-                The system
+                Company
             </p>
 
         </div>

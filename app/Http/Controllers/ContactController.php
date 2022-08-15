@@ -10,27 +10,14 @@ use Exception;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
+use function MongoDB\BSON\toJSON;
 
 class ContactController extends Controller
 {
-    public function show($category)
-    {
-        try {
-            $devices = Device::without('category')->where('category_id', $category)->orderBy('name')->get(['id', 'name']);
-
-            $deviceOptions = '<option value="-1" selected disabled>Select a device</option>';
-            foreach ($devices as $device) {
-                $deviceOptions .= '<option value="' . $device->id . '">' . $device->name . '</option>';
-            }
-
-            return ['success' => true, 'deviceOptions' => $deviceOptions];
-        } catch (Exception $e) {
-            Log::error($e->getMessage());
-            return ['success' => false, 'errorMsg' => $e->getMessage()];
-        }
-    }
-
-    public function create()
+    /**
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|void
+     */
+    public function index()
     {
         try {
             $loggedInEmail = '';
@@ -47,7 +34,29 @@ class ContactController extends Controller
         }
     }
 
-    public function store(ContactRequest $request)
+    /**
+     * @param $category
+     * @return array
+     */
+    public function getDevices($category)
+    {
+        try {
+            $devices = Device::without('category')
+                ->where('category_id', $category)
+                ->orderBy('name')
+                ->get(['id', 'name']);
+            return ['success' => true, 'devices' => $devices];
+        } catch (Exception $e) {
+            Log::error($e->getMessage());
+            return ['success' => false, 'errorMsg' => $e->getMessage()];
+        }
+    }
+
+    /**
+     * @param ContactRequest $request
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function sendMail(ContactRequest $request)
     {
         try {
             $deviceName = '';

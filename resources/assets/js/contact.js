@@ -10,7 +10,12 @@ $(document).ready(function () {
             },
             success: function (d) {
                 if (d.success === true) {
-                    $("#device_id").html(d.deviceOptions);
+                    let deviceOptions = '<option value="-1" selected disabled>Select a device</option>';
+                    d.devices.forEach(function (value) {
+                        deviceOptions += `<option value="${value.id}">${value.name}</option>`;
+                    });
+
+                    $("#device_id").html(deviceOptions);
                     $("#device_id").removeAttr("disabled");
                 } else {
                     $("#jsErrorToast .toast-body").html(d.errorMsg);
