@@ -66,3 +66,9 @@
 13. index() zie maar 1,2,3,4,5,6
 14. created_at en updated_at moeten utc, database time altijd utc, in view cet, kijk maar https://carbon.nesbot.com/docs/
 15. voeg maar type to file table, image of pdf en dan save file id (file pdf id) in device table pdf_id
+
+### Review 3 ContactController 15-8-2022  
+1. ik zie geen phpdocs blocks
+2. Graag geen html code in de controller
+3. beter functie namen en beter volgorde
+4. email from klopt niet
