@@ -82,7 +82,7 @@
                 @endauth
                 <li class="nav-item"><a href="{{url('/contact')}}" class="nav-link px-2 text-muted">Contact</a></li>
             </ul>
-            <p class="text-center text-muted">© {{date('Y')}} Company, Inc</p>
+            <p class="text-center text-muted">© {{date('Y')}} Company</p>
         </div>
     </div>
 </footer>
