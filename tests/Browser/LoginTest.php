@@ -17,13 +17,12 @@ class LoginTest extends DuskTestCase
     {
         $this->browse(function (Browser $browser) {
             $browser->visit('/login')
-                    ->assertSee('Login');
+                ->assertSee('Login');
 
             $browser->type('#email', 'floris.van.engen@connectionSystems.nl');
             $browser->type('#password', 'password123');
             $browser->press('button[type=submit]');
             $browser->waitForText('Login successful!');
-            $browser->screenshot('LoggedIn');
         });
     }
 
@@ -41,7 +40,6 @@ class LoginTest extends DuskTestCase
             $browser->assertSee('Logout');
             $browser->press('button[type=submit].dropdown-item');
             $browser->waitForText('Goodbye!');
-            $browser->screenshot('LoggedOut');
         });
     }
 }
