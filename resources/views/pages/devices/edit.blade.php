@@ -15,7 +15,7 @@
                         <a href="{{url('media/' . $device->pdf->path)}}"
                            target="_blank">{!! $device->pdf->name !!}</a>
                     </label>
-                    <button type="button" class="btn btn-danger ms-2 delete-file"
+                    <button type="button" class="btn btn-danger ms-2 delete-file delete-pdf"
                             data-id="{{$device->pdf->id}}">
                         Delete
                     </button>
@@ -52,7 +52,7 @@
             New photo:
         </label>
         <input id="path" class="form-control ms-2" name="path" type="file" accept="image/*" required/>
-        <button type="submit" class="btn btn-primary flex-shrink-0 ms-2">
+        <button type="submit" class="btn btn-primary add-photo flex-shrink-0 ms-2">
             Add photo
         </button>
     </form>
@@ -67,7 +67,7 @@
                         <label class="form-label text-center">
                             {{ $photo->name }}
                         </label>
-                        <button type="button" class="btn btn-danger delete-file" data-id="{{$photo->id}}">
+                        <button type="button" class="btn btn-danger delete-file delete-photo" data-id="{{$photo->id}}">
                             Delete
                         </button>
                     </div>

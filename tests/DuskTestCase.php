@@ -2,9 +2,11 @@
 
 namespace Tests;
 
+use App\Models\Device;
 use Facebook\WebDriver\Chrome\ChromeOptions;
 use Facebook\WebDriver\Remote\DesiredCapabilities;
 use Facebook\WebDriver\Remote\RemoteWebDriver;
+use Illuminate\Support\Facades\Storage;
 use Laravel\Dusk\TestCase as BaseTestCase;
 
 abstract class DuskTestCase extends BaseTestCase
@@ -19,9 +21,28 @@ abstract class DuskTestCase extends BaseTestCase
      */
     public static function prepare()
     {
-        if (! static::runningInSail()) {
+        if (!static::runningInSail()) {
             static::startChromeDriver();
         }
+    }
+
+    /**
+     * Clean up the testing environment before the next test.
+     *
+     * @return void
+     */
+    public function tearDown () : void
+    {
+        $devices = Device::with('media')
+            ->where('id', '>', 100)
+            ->get();
+        foreach ($devices as $device) {
+            foreach ($device->media as $m) {
+                Storage::delete($m->type . '/' . $m->path);
+            }
+            $device->delete();
+        }
+        parent::tearDown();
     }
 
     /**
@@ -43,7 +64,8 @@ abstract class DuskTestCase extends BaseTestCase
         return RemoteWebDriver::create(
             $_ENV['DUSK_DRIVER_URL'] ?? 'http://localhost:9515',
             DesiredCapabilities::chrome()->setCapability(
-                ChromeOptions::CAPABILITY, $options
+                ChromeOptions::CAPABILITY,
+                $options
             )
         );
     }
@@ -56,7 +78,7 @@ abstract class DuskTestCase extends BaseTestCase
     protected function hasHeadlessDisabled()
     {
         return isset($_SERVER['DUSK_HEADLESS_DISABLED']) ||
-               isset($_ENV['DUSK_HEADLESS_DISABLED']);
+            isset($_ENV['DUSK_HEADLESS_DISABLED']);
     }
 
     /**
@@ -67,6 +89,6 @@ abstract class DuskTestCase extends BaseTestCase
     protected function shouldStartMaximized()
     {
         return isset($_SERVER['DUSK_START_MAXIMIZED']) ||
-               isset($_ENV['DUSK_START_MAXIMIZED']);
+            isset($_ENV['DUSK_START_MAXIMIZED']);
     }
 }

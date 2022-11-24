@@ -9,7 +9,8 @@ use Tests\DuskTestCase;
 class DeviceTest extends DuskTestCase
 {
     /**
-     * Test to create, edit and delete a device without a Pdf file
+     * Test to create, edit and delete a device without a Pdf file.
+     *
      * @return void
      */
     public function testCreateEditAndDeleteDevice()
@@ -18,6 +19,7 @@ class DeviceTest extends DuskTestCase
             $browser->loginAs(User::find(1))
                 ->visit('/')
                 ->assertSee('All devices')
+                ->scrollIntoView('.add-device')
                 ->clickLink('Create')
                 ->waitForText('Create a device');
 
@@ -30,6 +32,47 @@ class DeviceTest extends DuskTestCase
             $browser->press('button[type=submit].add-device');
             $browser->waitForText('The device has been added!');
 
+            $browser->click('.edit-device')
+                ->waitForText('Device: ' . $name);
+
+            $name = 'Samsung galaxy s10e';
+
+            // Edit device
+            $browser->type('#name', $name)
+                ->select('#category_id')
+                ->type('#description', 'This phone is the best of it\'s generation!')
+                ->press('button[type=submit].add-device')
+                ->waitForText('The device \'' . $name . '\' has been updated!');
+
+            // Delete device
+            $this->deleteDevice($browser, $name);
+        });
+    }
+
+    /**
+     * Test to create, edit and delete a device with a Pdf file.
+     *
+     * @return void
+     */
+    public function testCreateEditAndDeleteDeviceWithPdf()
+    {
+        $this->browse(function (Browser $browser) {
+            $browser->loginAs(User::find(1))
+                ->visit('/')
+                ->assertSee('All devices')
+                ->scrollIntoView('.add-device')
+                ->clickLink('Create')
+                ->waitForText('Create a device');
+
+            $name = 'Samsung galaxy foldZ 4';
+
+            // Create device
+            $browser->type('#name', $name)
+                ->select('#category_id')
+                ->type('#description', 'This phone has a foldable screen. The newest of its generation!')
+                ->attach('#pdf', __DIR__ . '\testFiles\diagram.pdf')
+                ->press('button[type=submit].add-device')
+                ->waitForText('The device has been added!');
 
             $browser->click('.edit-device')
                 ->waitForText('Device: ' . $name);
@@ -37,8 +80,8 @@ class DeviceTest extends DuskTestCase
             $name = 'Samsung galaxy s10e';
 
             // Delete Pdf
-            $browser->click('.delete-file')
-                ->waitUntilMissing('.delete-file');
+            $browser->click('.delete-pdf')
+                ->waitUntilMissing('.delete-pdf');
 
             // Edit device
             $browser->type('#name', $name)
@@ -48,28 +91,17 @@ class DeviceTest extends DuskTestCase
                 ->press('button[type=submit].add-device')
                 ->waitForText('The device \'' . $name . '\' has been updated!');
 
-            $url = str_replace('/edit', '', $browser->driver->getCurrentURL());
-
             // Delete device
-            $browser->visit($url)
-                ->assertSee('Device: ' . $name)
-                ->press('button[type=button].delete-device');
-
-            // Delete device
-            $browser->whenAvailable('#deleteDeviceModal', function ($modal) {
-                $modal->assertSee('Delete a device')
-                    ->press('#deviceDeleteButton');
-            });
-
-            $browser->waitForText('The device \'' . $name . '\' has been deleted!');
+            $this->deleteDevice($browser, $name);
         });
     }
 
     /**
-     * Test to create, edit and delete a device with a Pdf file
+     * Test to add and delete a photo for a device
+     *
      * @return void
      */
-    public function testCreateEditAndDeleteDeviceWithPdf()
+    public function testAddDeviceFoto()
     {
         $this->browse(function (Browser $browser) {
             $browser->loginAs(User::find(1))
@@ -91,53 +123,57 @@ class DeviceTest extends DuskTestCase
             $browser->click('.edit-device')
                 ->waitForText('Device: ' . $name);
 
-            $name = 'Samsung galaxy s10e';
+            // Add photo
+            $browser->attach('#path', __DIR__ . '\testFiles\illustration.png')
+                ->press('button[type=submit].add-photo')
+                ->waitForText('The photo has been added!');
 
-            // Delete Pdf
-            $browser->click('.delete-file')
-                ->waitUntilMissing('.delete-file');
-
-            // Edit device
-            $browser->type('#name', $name)
-                ->select('#category_id')
-                ->type('#description', 'This phone is the best of it\'s generation!')
-                ->attach('#pdf', __DIR__ . '\testFiles\diagram.pdf')
-                ->press('button[type=submit].add-device')
-                ->waitForText('The device \'' . $name . '\' has been updated!');
-
-            $url = str_replace('/edit', '', $browser->driver->getCurrentURL());
+            // Delete photo
+            $browser->scrollIntoView('button[type=button].delete-photo')
+                ->pause(100)
+                ->press('button[type=button].delete-photo')
+                ->waitUntilMissingText('illustration.png');
 
             // Delete device
-            $browser->visit($url)
-                ->assertSee('Device: ' . $name)
-                ->press('button[type=button].delete-device');
-
-            $browser->whenAvailable('#deleteDeviceModal', function ($modal) {
-                $modal->assertSee('Delete a device')
-                    ->press('#deviceDeleteButton');
-            });
-
-            $browser->waitForText('The device \'' . $name . '\' has been deleted!');
+            $this->deleteDevice($browser, $name);
         });
     }
 
-    // /**
-    //  * Test to edit a device with a PDF file
-    //  * @return void
-    //  */
-    // public function testEditDeviceWithPdfFile()
-    // {
-    //     $this->browse(function (Browser $browser) {
-    //         $browser->visit('/')
-    //             ->assertSee('All devices');
-    //     });
-    // }
+    /**
+     * TODO: Test to see if the appropriate error message is shown if an name is filled in when that name is alreadt in use.
+     *
+     * @return void
+     */
+    public function testCreateAndEditDeviceWithSameName() {
+        $this->browse(function (Browser $browser) {
+            $browser->loginAs(User::find(1))
+                ->visit('/')
+                ->assertSee('All devices')
+                ->clickLink('Create')
+                ->waitForText('Create a device');
+        });
+    }
 
-    // public function testAddDeviceFoto()
-    // {
-    //     $this->browse(function (Browser $browser) {
-    //         $browser->visit('/')
-    //             ->assertSee('All devices');
-    //     });
-    // }
+    /**
+     * Delete a device based on the current url. The browser needs to be on the edit page of a device.
+     *
+     * @param Browser $browser
+     * @param string $name
+     * @return void
+     */
+    private function deleteDevice(Browser $browser, string $name)
+    {
+        $url = str_replace('/edit', '', $browser->driver->getCurrentURL());
+
+        $browser->visit($url)
+            ->assertSee('Device: ' . $name)
+            ->press('button[type=button].delete-device');
+
+        $browser->whenAvailable('#deleteDeviceModal', function ($modal) {
+            $modal->assertSee('Delete a device')
+                ->press('#deviceDeleteButton');
+        });
+
+        $browser->waitForText('The device \'' . $name . '\' has been deleted!');
+    }
 }
