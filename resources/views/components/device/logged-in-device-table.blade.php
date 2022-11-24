@@ -40,6 +40,6 @@
         <x-device.no-device-found/>
     @endif
 </x-device.device-table>
-<a class="btn btn-primary" href="/devices/create?category={{ $currentCategory->id }}">Create</a>
-<a class="btn btn-primary" href="/devices/order?category={{ $currentCategory->id }}">Change the order</a>
+<a class="btn btn-primary add-device" href="/devices/create?category={{ $currentCategory->id }}">Create</a>
+<a class="btn btn-primary order-devices" href="/devices/order?category={{ $currentCategory->id }}">Change the order</a>
 <x-device.delete-device-modal/>

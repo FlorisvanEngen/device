@@ -15,7 +15,7 @@
     <x-form.input name="order" disabled value="{{ $device->order }}"/>
     <x-form.textarea name="description" value="{!! $device->description !!}" disabled/>
     @auth
-        <a class="btn btn-primary" href="/devices/{{$device->id}}/edit">Edit</a>
+        <a class="btn btn-primary edit-device" href="/devices/{{$device->id}}/edit">Edit</a>
         <button type="button" class="btn btn-danger delete-device"
                 data-id="{{$device->id}}" data-name="{{$device->name}}">
             Delete
