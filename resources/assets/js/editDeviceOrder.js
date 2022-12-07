@@ -70,7 +70,7 @@ $(document).ready(function () {
                 });
 
                 $("#" + dragging).on("drop", function (event) {
-                    drop(event)
+                    drop(event);
                 });
 
                 dragging = null;
@@ -91,7 +91,7 @@ $(document).ready(function () {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
                 data: {
-                    inDevices: devices
+                    devices: devices
                 },
                 success: function (d) {
                     if (d.success === true) {

@@ -56,8 +56,8 @@ class OrderController extends Controller
     public function store(Request $request)
     {
         try {
-            foreach ($request->inDevices as $inDevice) {
-                Device::find($inDevice['id'])->update(['order' => $inDevice["order"]]);
+            foreach ($request->devices as $device) {
+                Device::find($device['id'])->update(['order' => $device["order"]]);
             }
 
             Session::flash('success', 'The new device order has been saved!');
