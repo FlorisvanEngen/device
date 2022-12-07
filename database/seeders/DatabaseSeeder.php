@@ -47,34 +47,34 @@ class DatabaseSeeder extends Seeder
             'category_id' => 3
         ]);
 
-//        Media::factory(1)->create([
-//            'device_id' => 1,
-//            'name' => 'illustration-1.png',
-//            'photo_path' => 'img/illustration-1.png'
-//        ]);
-//
-//        Media::factory(1)->create([
-//            'device_id' => 1,
-//            'name' => 'illustration-2.png',
-//            'photo_path' => 'img/illustration-2.png'
-//        ]);
-//
-//        Media::factory(1)->create([
-//            'device_id' => 1,
-//            'name' => 'illustration-3.png',
-//            'photo_path' => 'img/illustration-3.png'
-//        ]);
-//
-//        Media::factory(1)->create([
-//            'device_id' => 2,
-//            'name' => 'illustration-4.png',
-//            'photo_path' => 'img/illustration-4.png'
-//        ]);
-//
-//        Media::factory(1)->create([
-//            'device_id' => 2,
-//            'name' => 'illustration-5.png',
-//            'photo_path' => 'img/illustration-5.png'
-//        ]);
+       // Media::factory(1)->create([
+       //     'device_id' => 1,
+       //     'name' => 'illustration-1.png',
+       //     'photo_path' => 'img/illustration-1.png'
+       // ]);
+
+       // Media::factory(1)->create([
+       //     'device_id' => 1,
+       //     'name' => 'illustration-2.png',
+       //     'photo_path' => 'img/illustration-2.png'
+       // ]);
+
+       // Media::factory(1)->create([
+       //     'device_id' => 1,
+       //     'name' => 'illustration-3.png',
+       //     'photo_path' => 'img/illustration-3.png'
+       // ]);
+
+       // Media::factory(1)->create([
+       //     'device_id' => 2,
+       //     'name' => 'illustration-4.png',
+       //     'photo_path' => 'img/illustration-4.png'
+       // ]);
+
+       // Media::factory(1)->create([
+       //     'device_id' => 2,
+       //     'name' => 'illustration-5.png',
+       //     'photo_path' => 'img/illustration-5.png'
+       // ]);
     }
 }

@@ -56,6 +56,18 @@ return [
             'throw' => false,
         ],
 
+        'img' => [
+            'driver' => 'local',
+            'root' => storage_path('app/img'),
+            'throw' => false,
+        ],
+
+        'pdf' => [
+            'driver' => 'local',
+            'root' => storage_path('app/pdf'),
+            'throw' => false,
+        ],
+
     ],
 
     /*

@@ -65,7 +65,7 @@ class MediaController extends Controller
                 'device_id' => $device
             ]);
 
-            return redirect('/devices/' . $device . '/edit')->with('success', 'The photo has been added!');
+            return redirect('devices/' . $device . '/edit')->with('success', 'The photo has been added!');
         } catch (Exception $e) {
             Log::error($e->getMessage());
         }
