@@ -7,6 +7,8 @@ use App\Models\Media;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
 
@@ -19,14 +21,30 @@ use function PHPUnit\Framework\assertTrue;
 
 class DeviceTest extends TestCase
 {
-    use RefreshDatabase;
+    // ? refresh database with an SQL script
+    protected static $firstTest = true;
+
+    public function setUp() : void {
+        parent::setUp();
+
+        if (self::$firstTest) {
+            $path = base_path('tests\Setup\deviceproject.sql');
+            $sql = file_get_contents($path);
+            DB::unprepared($sql);
+            self::$firstTest = false;
+        }
+    }
+
+    // ? refresh database with an modal
+    // use RefreshDatabase;
 
     /**
+     * @test
      * Test to create a device
      *
      * @return void
      */
-    public function testAddADevice()
+    public function add_a_device()
     {
         // Go to create device page - Not authorized
         $response = $this->get('/devices/create?category=1');
@@ -53,11 +71,12 @@ class DeviceTest extends TestCase
     }
 
     /**
+     * @test
      * Test to add a device
      *
      * @return void
      */
-    public function testEditDeviceWithAPdfFile()
+    public function edit_device_with_a_pdf_file()
     {
         $user = User::find(1);
         $device = Device::orderByDesc('id')->first();
@@ -81,11 +100,12 @@ class DeviceTest extends TestCase
     }
 
     /**
+     * @test
      * Test to add diffrent types of photo's
      *
      * @return void
      */
-    public function testDevicePhotos()
+    public function add_and_delete_device_photos()
     {
         $user = User::find(1);
         $device = Device::orderByDesc('id')->first();
@@ -159,11 +179,12 @@ class DeviceTest extends TestCase
     }
 
     /**
+     * @test
      * Test to delete a device
      *
      * @return void
      */
-    public function testDeleteDevice()
+    public function delete_a_device()
     {
         $user = User::find(1);
         $device = Device::orderByDesc('id')->first();

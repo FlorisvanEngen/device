@@ -7,12 +7,16 @@ use Tests\TestCase;
 
 class ExampleTest extends TestCase
 {
+    // ? refresh database with an modal
+    // use RefreshDatabase;
+
     /**
+     * @test
      * A basic test example.
      *
      * @return void
      */
-    public function test_the_application_returns_a_successful_response()
+    public function the_application_returns_a_successful_response()
     {
         $response = $this->get('/');
 

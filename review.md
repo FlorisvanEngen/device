@@ -35,7 +35,7 @@
 2. Advies - in form actions gebruik maar {{route('route naam', $var)}} ipv static urls, in lange urls met veel data, variables wordt handiger
 3. != null  is hetzelfde als zonder, bijv. if($device->pdf_path != null) is precies gelijk aan if($device->pdf_path) :)
 4. if(count($photos) > 0) is ook gelijk aan if(count($photos)) en gelijk aan if($photos) ;-)
-5. In change order file (views\pages\devices\order\index) heb je <script> boven en daar heb je php loop in js. Eerste script moet helemaal onder, eind van file, tweede don't mix talen met elkaar, ook als deze manier lijkt op te werken
+5. In change order file (views\pages\devices\order\index) heb je `<script>` boven en daar heb je php loop in js. Eerste script moet helemaal onder, eind van file, tweede don't mix talen met elkaar, ook als deze manier lijkt op te werken
 
 
 **Models**
