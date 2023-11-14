@@ -10,7 +10,7 @@
         "production": "mix --production"
     },
     "devDependencies": {
-        "axios": "^0.25",
+        "axios": "^1.6",
         "bootstrap": "^5.2.0",
         "bootstrap-sass": "^3.4.3",
         "cross-env": "^7.0.3",
@@ -28,7 +28,7 @@
         "terser": ">=4.8.1"
     },
     "dependencies": {
-        "axios": "^0.25",
+        "axios": "^1.6",
         "bootstrap": "^5.2.0",
         "bootstrap-sass": "^3.4.3",
         "bootstrap-scss": "^5.2.0",
