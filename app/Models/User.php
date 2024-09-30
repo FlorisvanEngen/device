@@ -42,6 +42,14 @@ class User extends Authenticatable
     ];
 
     /**
+     * @return string
+     */
+    public function getAuthPasswordName()
+    {
+        return 'password';
+    }
+
+    /**
      * @param $password
      * @return void
      */

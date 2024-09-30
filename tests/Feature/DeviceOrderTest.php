@@ -13,7 +13,7 @@ use Tests\TestCase;
 use function PHPUnit\Framework\assertSame;
 use function PHPUnit\Framework\assertTrue;
 
-class deviceOrderTest extends TestCase
+class DeviceOrderTest extends TestCase
 {
     // ? refresh database with an SQL script
     protected static $firstTest = true;
